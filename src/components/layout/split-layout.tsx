@@ -73,12 +73,15 @@ export function SplitLayout({
       >
         <div
           className={cn(
-            "flex-1 flex flex-col transition-opacity duration-200",
+            "flex-1 flex flex-col transition-opacity duration-200 overflow-y-auto overflow-x-hidden scrollbar-thin relative group/sidebar",
             isOpen ? "opacity-100 delay-150" : "opacity-0 pointer-events-none",
           )}
           style={{ width: "var(--sidebar-width)" }}
         >
           {sidebar}
+          
+          {/* Bottom mask indicator - purely visual polish */}
+          <div className="sticky bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-muted/5 to-transparent pointer-events-none z-10 opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-500" />
         </div>
       </aside>
 
