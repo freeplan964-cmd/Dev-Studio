@@ -1,17 +1,19 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { useForge, newId } from "@/lib/store";
-import { Scissors, Plus, Trash2, Search, Copy, Check } from "lucide-react";
+import { Scissors, Plus, Trash2, Search, Copy } from "lucide-react";
 import { toast } from "sonner";
 import type { Snippet } from "@/types/tools";
 import { Field, Input, TextArea } from "./shared";
 import { SplitLayout } from "../layout";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 export function Snippets({ selectedId }: { selectedId?: string }) {
   const navigate = useNavigate({ from: "/tools" });
   const search = useSearch({ from: "/tools" });
   const { snippets, upsertSnippet, deleteSnippet } = useForge();
   const [query, setQuery] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const filtered = useMemo(
     () => snippets.filter((s) => s.title.toLowerCase().includes(query.toLowerCase())),
@@ -42,9 +44,15 @@ export function Snippets({ selectedId }: { selectedId?: string }) {
     upsertSnippet({ ...selected, ...patch, updatedAt: Date.now() });
   };
 
+  const handleDelete = () => {
+    if (!selected) return;
+    deleteSnippet(selected.id);
+    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
+    toast.success("Snippet deleted");
+  };
+
   const sidebar = (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Top Section */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -131,11 +139,7 @@ export function Snippets({ selectedId }: { selectedId?: string }) {
               </div>
               <div className="flex items-center gap-1.5 shrink-0 self-end sm:self-auto mt-2 sm:mt-0">
                 <button
-                  onClick={() => {
-                    deleteSnippet(selected.id);
-                    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
-                    toast.success("Snippet deleted");
-                  }}
+                  onClick={() => setConfirmOpen(true)}
                   className="p-2 rounded-md border border-border hover:bg-destructive/10"
                 >
                   <Trash2 className="size-4 text-muted-foreground" />
@@ -202,6 +206,15 @@ export function Snippets({ selectedId }: { selectedId?: string }) {
           </div>
         </section>
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete snippet?"
+        description="This snippet will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={handleDelete}
+      />
     </SplitLayout>
   );
 }

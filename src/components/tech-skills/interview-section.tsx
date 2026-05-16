@@ -3,9 +3,9 @@ import { Search, Plus } from "lucide-react";
 import { useForge } from "@/lib/store";
 import { QACard } from "@/components/interview/qa-card";
 import { QAEditorDialog } from "@/components/interview/qa-editor-dialog";
-import { Field, StatusDot, Input } from "@/components/tools/shared";
+import { Input } from "@/components/tools/shared";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { FocusArea } from "@/types/common";
-import { SplitLayout } from "../layout";
 import type { SkillAreaData, InterviewQuestion } from "@/types/skills";
 
 interface Props {
@@ -21,6 +21,7 @@ export function InterviewSection({ data }: Props) {
   const [diff, setDiff] = useState("all");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingQ, setEditingQ] = useState<InterviewQuestion | null>(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   const filteredQs = useMemo(
     () =>
@@ -43,6 +44,7 @@ export function InterviewSection({ data }: Props) {
     setEditingQ(null);
     setDialogOpen(true);
   };
+
   const handleEdit = (q: InterviewQuestion) => {
     setEditingQ(q);
     setDialogOpen(true);
@@ -65,7 +67,6 @@ export function InterviewSection({ data }: Props) {
         </button>
       </div>
 
-      {/* Search + difficulty filter */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 bg-card border border-border p-2 rounded-xl shadow-sm">
         <div className="relative flex-1">
           <Search className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -94,7 +95,6 @@ export function InterviewSection({ data }: Props) {
         </div>
       </div>
 
-      {/* Q&A list */}
       <div className="space-y-3">
         {filteredQs.map((q) => (
           <QACard
@@ -104,7 +104,7 @@ export function InterviewSection({ data }: Props) {
             onToggle={() => toggleExpanded(q.id)}
             onToggleFavorite={() => toggleFavoriteInterviewQuestion(q.id)}
             onEdit={() => handleEdit(q)}
-            onDelete={() => deleteInterviewQuestion(q.id)}
+            onDelete={() => setPendingDeleteId(q.id)}
           />
         ))}
         {filteredQs.length === 0 && (
@@ -124,6 +124,18 @@ export function InterviewSection({ data }: Props) {
         onOpenChange={setDialogOpen}
         editing={editingQ}
         defaultArea={data.id as FocusArea}
+      />
+
+      <ConfirmDialog
+        open={pendingDeleteId !== null}
+        onOpenChange={(open) => { if (!open) setPendingDeleteId(null); }}
+        title="Delete question?"
+        description="This Q&A will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={() => {
+          if (pendingDeleteId) deleteInterviewQuestion(pendingDeleteId);
+          setPendingDeleteId(null);
+        }}
       />
     </div>
   );

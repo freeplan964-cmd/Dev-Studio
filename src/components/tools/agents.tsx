@@ -13,12 +13,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SplitLayout } from "../layout";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 export function Agents({ selectedId }: { selectedId?: string }) {
   const navigate = useNavigate({ from: "/tools" });
   const search = useSearch({ from: "/tools" });
   const { agents, upsertAgent, deleteAgent } = useForge();
   const [query, setQuery] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const filtered = useMemo(
     () => agents.filter((a) => a.name.toLowerCase().includes(query.toLowerCase())),
@@ -53,9 +55,15 @@ export function Agents({ selectedId }: { selectedId?: string }) {
     toast.success("Agent updated");
   };
 
+  const handleDelete = () => {
+    if (!selected) return;
+    deleteAgent(selected.id);
+    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
+    toast.success("Agent deleted");
+  };
+
   const sidebar = (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Top Section */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -142,11 +150,7 @@ export function Agents({ selectedId }: { selectedId?: string }) {
                 />
               </div>
               <button
-                onClick={() => {
-                  deleteAgent(selected.id);
-                  navigate({ search: (prev) => ({ ...prev, id: undefined }) });
-                  toast.success("Agent deleted");
-                }}
+                onClick={() => setConfirmOpen(true)}
                 className="p-2 rounded-md border border-border hover:bg-destructive/10 self-end sm:self-auto"
               >
                 <Trash2 className="size-4 text-muted-foreground" />
@@ -248,6 +252,15 @@ export function Agents({ selectedId }: { selectedId?: string }) {
           </div>
         </section>
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete agent?"
+        description="This agent will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={handleDelete}
+      />
     </SplitLayout>
   );
 }

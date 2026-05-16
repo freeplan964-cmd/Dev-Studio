@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SplitLayout } from "../layout";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 export function Components({ selectedId }: { selectedId?: string }) {
   const navigate = useNavigate({ from: "/tools" });
@@ -28,6 +29,7 @@ export function Components({ selectedId }: { selectedId?: string }) {
   const { components, upsertComponent, deleteComponent } = useForge();
   const [query, setQuery] = useState("");
   const [previewMode, setPreviewMode] = useState<"code" | "preview">("preview");
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const filtered = useMemo(
     () => components.filter((c) => c.name.toLowerCase().includes(query.toLowerCase())),
@@ -60,9 +62,15 @@ export function Components({ selectedId }: { selectedId?: string }) {
     upsertComponent({ ...selected, ...patch, updatedAt: Date.now() });
   };
 
+  const handleDelete = () => {
+    if (!selected) return;
+    deleteComponent(selected.id);
+    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
+    toast.success("Component deleted");
+  };
+
   const sidebar = (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Top Section */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -149,11 +157,7 @@ export function Components({ selectedId }: { selectedId?: string }) {
               </div>
               <div className="flex items-center gap-1.5 shrink-0">
                 <button
-                  onClick={() => {
-                    deleteComponent(selected.id);
-                    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
-                    toast.success("Component deleted");
-                  }}
+                  onClick={() => setConfirmOpen(true)}
                   className="p-2 rounded-md border border-border hover:bg-destructive/10"
                 >
                   <Trash2 className="size-4 text-muted-foreground" />
@@ -250,6 +254,15 @@ export function Components({ selectedId }: { selectedId?: string }) {
           </div>
         </section>
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete component?"
+        description="This component will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={handleDelete}
+      />
     </SplitLayout>
   );
 }

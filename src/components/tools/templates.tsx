@@ -7,7 +7,6 @@ import {
   Trash2,
   Search,
   Check,
-  Layers,
   ListTree,
   StickyNote,
 } from "lucide-react";
@@ -15,12 +14,14 @@ import { toast } from "sonner";
 import type { Template } from "@/types/tools";
 import { Field, Input, TextArea } from "./shared";
 import { SplitLayout } from "../layout";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 export function Templates({ selectedId }: { selectedId?: string }) {
   const navigate = useNavigate({ from: "/tools" });
   const search = useSearch({ from: "/tools" });
   const { templates, upsertTemplate, deleteTemplate } = useForge();
   const [query, setQuery] = useState("");
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const filtered = useMemo(
     () => templates.filter((t) => t.name.toLowerCase().includes(query.toLowerCase())),
@@ -52,9 +53,15 @@ export function Templates({ selectedId }: { selectedId?: string }) {
     upsertTemplate({ ...selected, ...patch, updatedAt: Date.now() });
   };
 
+  const handleDelete = () => {
+    if (!selected) return;
+    deleteTemplate(selected.id);
+    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
+    toast.success("Template deleted");
+  };
+
   const sidebar = (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Top Section */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -144,11 +151,7 @@ export function Templates({ selectedId }: { selectedId?: string }) {
                 />
               </div>
               <button
-                onClick={() => {
-                  deleteTemplate(selected.id);
-                  navigate({ search: (prev) => ({ ...prev, id: undefined }) });
-                  toast.success("Template deleted");
-                }}
+                onClick={() => setConfirmOpen(true)}
                 className="p-2 rounded-md border border-border hover:bg-destructive/10 self-end sm:self-auto mt-2 sm:mt-0"
               >
                 <Trash2 className="size-4 text-muted-foreground" />
@@ -241,6 +244,15 @@ export function Templates({ selectedId }: { selectedId?: string }) {
           </div>
         </section>
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete template?"
+        description="This template will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={handleDelete}
+      />
     </SplitLayout>
   );
 }

@@ -1,5 +1,7 @@
 import { Mail, MessageCircle, FileText, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
 import type { MailTemplate } from "@/types/tools";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface MailsSidebarProps {
   channel: string;
@@ -18,11 +20,11 @@ export function MailsSidebar({
   onNewTemplate,
   onDeleteTemplate,
 }: MailsSidebarProps) {
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const channelTemplates = templates.filter((t) => t.channel === channel);
 
   return (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Header */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -67,14 +69,14 @@ export function MailsSidebar({
                   {template.content || "Empty content"}
                 </div>
                 <div className="text-[10px] opacity-70 mt-1 flex items-center gap-2">
-                   <span className={`shrink-0 w-1 h-1 rounded-full ${activeTemplateId === template.id ? "bg-primary" : "bg-muted-foreground"}`} />
+                  <span className={`shrink-0 w-1 h-1 rounded-full ${activeTemplateId === template.id ? "bg-primary" : "bg-muted-foreground"}`} />
                   {new Date(template.updatedAt).toLocaleDateString()}
                 </div>
               </div>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onDeleteTemplate(template.id);
+                  setPendingDeleteId(template.id);
                 }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all"
                 title="Delete template"
@@ -85,13 +87,25 @@ export function MailsSidebar({
           ))
         ) : (
           <div className="px-3 py-8 text-xs text-muted-foreground border border-dashed border-border rounded-lg text-center flex flex-col items-center gap-2 m-2">
-             <div className="size-8 rounded-full bg-muted/20 flex items-center justify-center">
-               <Plus className="size-4 opacity-50" />
+            <div className="size-8 rounded-full bg-muted/20 flex items-center justify-center">
+              <Plus className="size-4 opacity-50" />
             </div>
             No templates yet
           </div>
         )}
       </nav>
+
+      <ConfirmDialog
+        open={pendingDeleteId !== null}
+        onOpenChange={(open) => { if (!open) setPendingDeleteId(null); }}
+        title="Delete template?"
+        description="This template will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={() => {
+          if (pendingDeleteId) onDeleteTemplate(pendingDeleteId);
+          setPendingDeleteId(null);
+        }}
+      />
     </div>
   );
 }

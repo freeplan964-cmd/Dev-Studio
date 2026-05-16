@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import type { Prompt } from "@/types/tools";
 import { Field, Input, TextArea } from "./shared";
 import { SplitLayout } from "../layout";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 export function Prompts({ selectedId }: { selectedId?: string }) {
   const navigate = useNavigate({ from: "/tools" });
@@ -15,6 +16,7 @@ export function Prompts({ selectedId }: { selectedId?: string }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<string>("All");
   const [varValues, setVarValues] = useState<Record<string, string>>({});
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(prompts.map((p) => p.category)))],
@@ -82,9 +84,15 @@ export function Prompts({ selectedId }: { selectedId?: string }) {
     toast.success("Prompt copied to clipboard");
   };
 
+  const handleDelete = () => {
+    if (!selected) return;
+    deletePrompt(selected.id);
+    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
+    toast.success("Prompt deleted");
+  };
+
   const sidebar = (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Top Section */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -202,11 +210,7 @@ export function Prompts({ selectedId }: { selectedId?: string }) {
                   />
                 </button>
                 <button
-                  onClick={() => {
-                    deletePrompt(selected.id);
-                    navigate({ search: (prev) => ({ ...prev, id: undefined }) });
-                    toast.success("Prompt deleted");
-                  }}
+                  onClick={() => setConfirmOpen(true)}
                   className="p-2 rounded-md border border-border hover:bg-destructive/10 hover:border-destructive/40"
                   title="Delete"
                 >
@@ -359,6 +363,15 @@ export function Prompts({ selectedId }: { selectedId?: string }) {
           </div>
         </section>
       )}
+
+      <ConfirmDialog
+        open={confirmOpen}
+        onOpenChange={setConfirmOpen}
+        title="Delete prompt?"
+        description="This prompt will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={handleDelete}
+      />
     </SplitLayout>
   );
 }

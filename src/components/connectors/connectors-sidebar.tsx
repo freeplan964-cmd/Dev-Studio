@@ -1,5 +1,7 @@
 import { Users, Building2, Briefcase, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
 import type { Connector } from "@/types/tools";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface ConnectorsSidebarProps {
   type: string;
@@ -18,11 +20,11 @@ export function ConnectorsSidebar({
   onNewConnector,
   onDeleteConnector,
 }: ConnectorsSidebarProps) {
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const typeConnectors = connectors.filter((c) => c.type === type);
 
   return (
     <div className="flex flex-col h-full min-h-0">
-      {/* Sticky Header */}
       <div className="p-4 border-b border-border sticky top-0 bg-background/80 backdrop-blur-md z-20">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -67,14 +69,14 @@ export function ConnectorsSidebar({
                   {connector.email || connector.phone || "No contact info"}
                 </div>
                 <div className="text-[10px] opacity-70 mt-1 flex items-center gap-2">
-                   <span className={`shrink-0 w-1 h-1 rounded-full ${activeConnectorId === connector.id ? "bg-primary" : "bg-muted-foreground"}`} />
+                  <span className={`shrink-0 w-1 h-1 rounded-full ${activeConnectorId === connector.id ? "bg-primary" : "bg-muted-foreground"}`} />
                   {new Date(connector.updatedAt).toLocaleDateString()}
                 </div>
               </div>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onDeleteConnector(connector.id);
+                  setPendingDeleteId(connector.id);
                 }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-md opacity-0 group-hover:opacity-100 hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-all"
                 title="Delete contact"
@@ -86,12 +88,24 @@ export function ConnectorsSidebar({
         ) : (
           <div className="px-3 py-8 text-xs text-muted-foreground border border-dashed border-border rounded-lg text-center flex flex-col items-center gap-2 m-2">
             <div className="size-8 rounded-full bg-muted/20 flex items-center justify-center">
-               <Plus className="size-4 opacity-50" />
+              <Plus className="size-4 opacity-50" />
             </div>
             No contacts yet
           </div>
         )}
       </nav>
+
+      <ConfirmDialog
+        open={pendingDeleteId !== null}
+        onOpenChange={(open) => { if (!open) setPendingDeleteId(null); }}
+        title="Delete contact?"
+        description="This contact will be permanently removed. This action cannot be undone."
+        confirmLabel="Delete"
+        onConfirm={() => {
+          if (pendingDeleteId) onDeleteConnector(pendingDeleteId);
+          setPendingDeleteId(null);
+        }}
+      />
     </div>
   );
 }
