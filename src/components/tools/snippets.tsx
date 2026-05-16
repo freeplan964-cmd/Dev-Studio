@@ -125,7 +125,7 @@ export function Snippets({ selectedId }: { selectedId?: string }) {
   );
 
   return (
-    <SplitLayout sidebar={sidebar} sidebarWidth="lg:w-[300px]">
+    <SplitLayout sidebar={sidebar} sidebarWidth="lg:w-[260px]">
       {selected ? (
         <section className="flex flex-col flex-1 overflow-hidden">
           <div className="px-4 sm:px-8 pt-6 sm:pt-8 pb-4 border-b border-border bg-background">

@@ -182,7 +182,7 @@ export function Prompts({ selectedId }: { selectedId?: string }) {
   );
 
   return (
-    <SplitLayout sidebar={sidebar} sidebarWidth="lg:w-[320px]">
+    <SplitLayout sidebar={sidebar} sidebarWidth="lg:w-[260px]">
       {selected ? (
         <section className="overflow-y-auto scrollbar-thin h-full">
           <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-8 py-6 sm:py-8">
