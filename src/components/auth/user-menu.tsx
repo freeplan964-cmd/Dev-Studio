@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
+import { UserAvatar } from "@/components/ui/user-avatar";
 
 export function UserMenu({ isCollapsed }: { isCollapsed?: boolean }) {
-  const { user, signOut } = useAuth();
+  const { user, profile, signOut } = useAuth();
 
-  const displayName = user?.name ?? "Account";
-  const initial = displayName.slice(0, 1).toUpperCase();
+  const displayName = profile.displayName || user?.name || "Account";
 
   return (
     <div className={`mt-3 flex items-center ${isCollapsed ? "justify-center" : "gap-2 px-1"}`}>
@@ -15,17 +15,7 @@ export function UserMenu({ isCollapsed }: { isCollapsed?: boolean }) {
         title={isCollapsed ? displayName : undefined}
         className={`flex items-center group ${isCollapsed ? "justify-center" : "gap-2.5 flex-1 min-w-0"}`}
       >
-        {user?.profileImage ? (
-          <img
-            src={user.profileImage}
-            alt={displayName}
-            className="size-7 rounded-full shrink-0 object-cover"
-          />
-        ) : (
-          <div className="size-7 rounded-full bg-gradient-to-br from-primary to-accent grid place-items-center text-[10px] font-semibold text-primary-foreground shrink-0">
-            {initial}
-          </div>
-        )}
+        <UserAvatar name={displayName} avatarUrl={profile.avatarUrl} size="sm" />
         {!isCollapsed && (
           <div className="flex flex-col leading-tight min-w-0">
             <span className="text-xs font-medium truncate group-hover:text-foreground transition-colors">
