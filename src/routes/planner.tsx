@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useCallback } from "react";
 import {
   CalendarDays, Plus, CheckCircle2, Circle, Clock,
-  LayoutGrid, ChevronDown, Dumbbell,
+  LayoutGrid, ChevronDown, Dumbbell, Briefcase, BookOpen,
 } from "lucide-react";
 import {
   DndContext, closestCenter, KeyboardSensor, PointerSensor,
@@ -29,13 +29,13 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { SplitLayout } from "@/components/layout";
 import { PageContainer, PageSection } from "@/components/layout";
-import { ActivitiesTab } from "@/components/activities/activities-tab";
+import { ActivitiesTab, WorkingTab, LearningTab } from "@/components/activities/activities-tab";
 
 export const Route = createFileRoute("/planner")({
   component: PlannerPage,
 });
 
-type Tab = "overview" | "schedule" | "activities";
+type Tab = "overview" | "schedule" | "activities" | "working" | "learning";
 
 function getWeekStart(d: Date) {
   const r = new Date(d);
@@ -68,6 +68,8 @@ const TABS: { id: Tab; label: string; icon: typeof CalendarDays }[] = [
   { id: "overview",   label: "Overview",   icon: LayoutGrid   },
   { id: "schedule",   label: "Schedule",   icon: CalendarDays },
   { id: "activities", label: "Activities", icon: Dumbbell     },
+  { id: "working",    label: "Working",    icon: Briefcase    },
+  { id: "learning",   label: "Learning",   icon: BookOpen     },
 ];
 
 /* ─────────────────────────────────────────────── */
@@ -529,6 +531,12 @@ export default function PlannerPage() {
 
           {/* ── ACTIVITIES ── */}
           {tab === "activities" && <ActivitiesTab />}
+
+          {/* ── WORKING ── */}
+          {tab === "working" && <WorkingTab />}
+
+          {/* ── LEARNING ── */}
+          {tab === "learning" && <LearningTab />}
 
         </SplitLayout>
       </div>

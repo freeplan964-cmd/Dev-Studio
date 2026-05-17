@@ -29,15 +29,13 @@ interface ActivitySuggestion {
   reason: string;
 }
 
-type InnerTab = "prayer" | "sports" | "care" | "food" | "working" | "learning";
+type InnerTab = "prayer" | "sports" | "care" | "food";
 
 const INNER_TABS: { id: InnerTab; label: string; icon: LucideIcon; color: string }[] = [
-  { id: "prayer",   label: "Prayer",   icon: Moon,      color: "text-indigo-500"  },
-  { id: "sports",   label: "Sports",   icon: Dumbbell,  color: "text-blue-500"    },
-  { id: "care",     label: "Care",     icon: Bath,      color: "text-rose-500"    },
-  { id: "food",     label: "Food",     icon: Utensils,  color: "text-amber-500"   },
-  { id: "working",  label: "Working",  icon: Briefcase, color: "text-violet-500"  },
-  { id: "learning", label: "Learning", icon: BookOpen,  color: "text-emerald-500" },
+  { id: "prayer",  label: "Prayer",  icon: Moon,     color: "text-indigo-500" },
+  { id: "sports",  label: "Sports",  icon: Dumbbell, color: "text-blue-500"   },
+  { id: "care",    label: "Care",    icon: Bath,     color: "text-rose-500"   },
+  { id: "food",    label: "Food",    icon: Utensils, color: "text-amber-500"  },
 ];
 
 /* ── Static suggestions ─────────────────────────── */
@@ -508,7 +506,7 @@ export function ActivitiesTab() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      {/* Inner tab bar — scrollable on small screens */}
+      {/* Inner tab bar */}
       <div className="shrink-0 px-4 sm:px-5 pt-3.5 pb-0 border-b border-border/50">
         <div className="flex gap-1 overflow-x-auto scrollbar-none pb-3">
           {INNER_TABS.map((t) => {
@@ -566,27 +564,36 @@ export function ActivitiesTab() {
             presets={PRESET_FOOD}
           />
         )}
-
-        {innerTab === "working" && (
-          <ActivityPanel
-            storeKey="working"
-            icon={Briefcase} title="Working Sessions"
-            color="text-violet-600" bgColor="bg-violet-500/5" borderColor="border-violet-500/20"
-            suggestions={WORKING_SUGGESTIONS}
-            presets={PRESET_WORKING}
-          />
-        )}
-
-        {innerTab === "learning" && (
-          <ActivityPanel
-            storeKey="learning"
-            icon={BookOpen} title="Learning & Study"
-            color="text-emerald-600" bgColor="bg-emerald-500/5" borderColor="border-emerald-500/20"
-            suggestions={LEARNING_SUGGESTIONS}
-            presets={PRESET_LEARNING}
-          />
-        )}
       </div>
+    </div>
+  );
+}
+
+/* ── STANDALONE EXPORTS for main tab nav ─────────── */
+export function WorkingTab() {
+  return (
+    <div className="flex-1 overflow-y-auto scrollbar-thin">
+      <ActivityPanel
+        storeKey="working"
+        icon={Briefcase} title="Working Sessions"
+        color="text-violet-600" bgColor="bg-violet-500/5" borderColor="border-violet-500/20"
+        suggestions={WORKING_SUGGESTIONS}
+        presets={PRESET_WORKING}
+      />
+    </div>
+  );
+}
+
+export function LearningTab() {
+  return (
+    <div className="flex-1 overflow-y-auto scrollbar-thin">
+      <ActivityPanel
+        storeKey="learning"
+        icon={BookOpen} title="Learning & Study"
+        color="text-emerald-600" bgColor="bg-emerald-500/5" borderColor="border-emerald-500/20"
+        suggestions={LEARNING_SUGGESTIONS}
+        presets={PRESET_LEARNING}
+      />
     </div>
   );
 }
