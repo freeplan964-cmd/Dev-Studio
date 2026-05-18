@@ -1,7 +1,7 @@
 import { CheckCircle2, Circle, Clock, TrendingUp, Flame, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PlannerTask } from "@/types/planner";
-import { CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_ICON_COMPONENTS } from "@/constants/planner";
+import { CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_ICON_COMPONENTS } from "@/data/planner/planner";
 import { toDateStr, addDays } from "@/lib/utils/planner";
 import { DAY_NAMES } from "@/constants";
 

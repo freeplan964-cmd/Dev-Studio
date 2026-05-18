@@ -1,6 +1,6 @@
 import { Mic, Handshake, Swords, Wifi, Terminal, GitPullRequest, Clock, Sparkles, Brain, Repeat2 } from "lucide-react";
 import { SkillArea } from "@/components/tech-skills/skill-area";
-import { SOFT_SKILLS_DATA } from "@/data/skills";
+import { SOFT_SKILLS_DATA } from "@/data/soft";
 
 export const SOFT_SKILL_GROUPS: Record<string, { id: string; label: string; icon: any }[]> = {
   communication: [

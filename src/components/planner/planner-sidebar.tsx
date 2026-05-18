@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PlannerTask } from "@/types/planner";
-import { WEEK_THEMES, CATEGORY_ICON_COMPONENTS, CATEGORY_LABELS } from "@/constants/planner";
+import { WEEK_THEMES, CATEGORY_ICON_COMPONENTS, CATEGORY_LABELS } from "@/data/planner/planner";
 import { getWeekTheme, toDateStr, addDays } from "@/lib/utils/planner";
 import { DAY_NAMES, MONTH_NAMES, STORAGE_KEYS, STATUS_FILTERS } from "@/constants";
 import type { StatusFilter } from "@/constants";

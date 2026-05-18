@@ -3,8 +3,14 @@ import { ForgeState } from "../types";
 import * as db from "@/lib/api";
 import { Difficulty, FocusArea } from "@/types/common";
 import { Prompt, Agent } from "@/types/tools";
-import { seedPrompts, seedAgents, seedComponents, seedSnippets, seedTemplates } from "@/data/seeds/tools";
-import { seedConnectors, seedSocialDrafts, seedMailTemplates } from "@/data/seeds/extras";
+import { seedPrompts } from "@/data/tools/prompts";
+import { seedAgents } from "@/data/tools/agents";
+import { seedComponents } from "@/data/tools/components";
+import { seedSnippets } from "@/data/tools/snippets";
+import { seedTemplates } from "@/data/tools/templates";
+import { seedConnectors } from "@/data/connectors/connectors";
+import { seedSocialDrafts } from "@/data/social/social-drafts";
+import { seedMailTemplates } from "@/data/mails/mail-templates";
 
 let _initInFlight = false;
 

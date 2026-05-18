@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import type { InterviewQuestion } from "@/types/skills";
 import type { FocusArea, Difficulty, AnswerDepth } from "@/types/common";
-import { DEPTH_LABEL_PRESETS, FOCUS_AREAS, DIFFICULTIES } from "@/constants";
+import { DEPTH_LABEL_PRESETS, FOCUS_AREAS, DIFFICULTIES } from "@/data/tech/interview";
 
 const AREAS = FOCUS_AREAS;
 const DIFFS = DIFFICULTIES;

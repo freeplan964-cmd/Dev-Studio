@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Plus, X, Clock, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PlannerTask, TaskPriority, TaskCategory } from "@/types/planner";
-import { CATEGORY_LABELS, CATEGORY_ICON_COMPONENTS, CATEGORY_COLORS, DAILY_PARTS, TASK_PRIORITY_OPTIONS as PRIORITIES, TASK_TIME_OPTIONS as TIME_OPTIONS } from "@/constants/planner";
+import { CATEGORY_LABELS, CATEGORY_ICON_COMPONENTS, CATEGORY_COLORS, DAILY_PARTS, TASK_PRIORITY_OPTIONS as PRIORITIES, TASK_TIME_OPTIONS as TIME_OPTIONS } from "@/data/planner/planner";
 import { formatMinutes } from "@/lib/utils/planner";
 
 interface AddTaskFormProps {

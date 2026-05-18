@@ -1,5 +1,5 @@
 import { TaskCategory } from "@/types/planner";
-import { WEEK_THEMES } from "@/constants/planner";
+import { WEEK_THEMES } from "@/data/planner/planner";
 
 export function toDateStr(d: Date): string {
   return d.toISOString().slice(0, 10);

@@ -7,7 +7,7 @@ import { useForge } from "@/lib/store";
 import { QAEditorDialog } from "./qa-editor-dialog";
 import type { FocusArea } from "@/types/common";
 import type { InterviewQuestion } from "@/types/skills";
-import { DIFFICULTIES, DOMAINS } from "@/constants";
+import { DIFFICULTIES, DOMAINS } from "@/data/tech/interview";
 
 export function QuestionList() {
   const { interviewQuestions, deleteInterviewQuestion, toggleFavoriteInterviewQuestion } = useForge();

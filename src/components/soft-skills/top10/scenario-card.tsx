@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Edit3, Trash2, ChevronUp, ChevronDown, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { type Scenario } from "@/constants";
+import { type Scenario } from "@/data/soft/behavioral";
 
 interface ScenarioCardProps {
   scenario: Scenario;

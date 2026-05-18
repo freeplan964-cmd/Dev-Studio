@@ -6,7 +6,7 @@ import {
   Sparkles, Droplets,
   LucideIcon
 } from "lucide-react";
-import { STORAGE_KEYS } from "./system";
+import { STORAGE_KEYS } from "../../constants/system";
 
 export interface ActivityItem {
   id: string;

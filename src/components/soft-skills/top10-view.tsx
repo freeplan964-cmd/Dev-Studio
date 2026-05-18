@@ -4,7 +4,7 @@ import { SplitLayout } from "@/components/layout";
 import { cn } from "@/lib/utils";
 import { useForge, newId } from "@/lib/store";
 import { useMemo } from "react";
-import { SUGGESTED_QUESTIONS, type Scenario, type Question } from "@/constants";
+import { SUGGESTED_QUESTIONS, type Scenario, type Question } from "@/data/soft/behavioral";
 import {
   QuestionSidebar,
   GuideSection,

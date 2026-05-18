@@ -17,8 +17,8 @@ import {
   INNER_TABS, WORKING_SUGGESTIONS, LEARNING_SUGGESTIONS,
   PRESET_FOOD, PRESET_SPORTS, PRESET_CARE, PRESET_WORKING, PRESET_LEARNING,
   ACTIVITIES_STORAGE_KEY, PRAYER_TRACKER_KEY,
-} from "@/constants";
-import type { ActivityItem, ActivitySuggestion, InnerTab } from "@/constants";
+} from "@/data/planner/activities";
+import type { ActivityItem, ActivitySuggestion, InnerTab } from "@/data/planner/activities";
 
 /* ── Prayer-aware suggestions ───────────────────── */
 function getPrayerSuggestions(prayers: PrayerTime[]): {

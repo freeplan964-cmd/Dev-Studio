@@ -7,7 +7,7 @@ import { Input } from "@/components/tools/shared";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { FocusArea } from "@/types/common";
 import type { SkillAreaData, InterviewQuestion } from "@/types/skills";
-import { DIFFICULTIES } from "@/constants";
+import { DIFFICULTIES } from "@/data/tech/interview";
 
 interface Props {
   data: SkillAreaData;

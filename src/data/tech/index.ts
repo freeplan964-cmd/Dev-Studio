@@ -10,7 +10,6 @@ import { systemDesignArea } from "./system-design";
 import { microservicesArea } from "./microservices";
 import { securityArea } from "./security";
 import { performanceArea } from "./performance";
-import { softSkillsArea } from "./soft-skills";
 
 export const TECH_AREAS: Record<TechAreaId, SkillAreaData> = {
   frontend: frontendArea,
@@ -25,5 +24,3 @@ export const TECH_AREAS: Record<TechAreaId, SkillAreaData> = {
   security: securityArea,
   performance: performanceArea,
 };
-
-export const SOFT_SKILLS_DATA: SkillAreaData = softSkillsArea;

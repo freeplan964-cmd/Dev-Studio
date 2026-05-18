@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, Star, Copy, Pencil, Trash2, ChevronRight } from
 import { toast } from "sonner";
 import type { InterviewQuestion } from "@/types/skills";
 
-import { DIFF_COLORS, DEPTH_COLORS } from "@/constants";
+import { DIFF_COLORS, DEPTH_COLORS } from "@/data/tech/interview";
 
 interface Props {
   item: InterviewQuestion;

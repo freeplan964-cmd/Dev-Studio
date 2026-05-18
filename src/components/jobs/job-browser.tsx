@@ -21,7 +21,7 @@ interface ScrapedJob {
 interface Props {
   onSaveJob: (job: Partial<SavedJob>) => Promise<void>;
 }
-import { CATEGORIES, TIME_OPTIONS, SOURCES, SOURCE_BADGE } from "@/constants";
+import { CATEGORIES, TIME_OPTIONS, SOURCES, SOURCE_BADGE } from "@/data/jobs/jobs";
 
 function timeAgo(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();

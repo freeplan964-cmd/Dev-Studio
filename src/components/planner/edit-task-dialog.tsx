@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PlannerTask, TaskPriority, TaskStatus, TaskCategory } from "@/types/planner";
-import { TASK_PRIORITIES as PRIORITIES, TASK_STATUSES as STATUSES, TASK_CATEGORIES as CATEGORIES, PRIORITY_CLASSES, STATUS_CLASSES, CATEGORY_LABELS } from "@/constants/planner";
+import { TASK_PRIORITIES as PRIORITIES, TASK_STATUSES as STATUSES, TASK_CATEGORIES as CATEGORIES, PRIORITY_CLASSES, STATUS_CLASSES, CATEGORY_LABELS } from "@/data/planner/planner";
 
 interface EditTaskDialogProps {
   task: PlannerTask | null;

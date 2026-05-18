@@ -1,7 +1,6 @@
 import { Trophy, Plus, X, Search, Check, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { type Question } from "@/constants";
-import { SUGGESTED_QUESTIONS } from "@/constants";
+import { type Question, SUGGESTED_QUESTIONS } from "@/data/soft/behavioral";
 import { AddQuestionForm } from "./add-question-form";
 
 interface QuestionSidebarProps {

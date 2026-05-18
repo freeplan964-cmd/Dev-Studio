@@ -1,5 +1,5 @@
 import { Layers, Plus, Sparkles, AlertCircle, Trash2, Star } from "lucide-react";
-import { type Scenario } from "@/constants";
+import { type Scenario } from "@/data/soft/behavioral";
 import { ScenarioForm } from "./scenario-form";
 import { ScenarioCard } from "./scenario-card";
 

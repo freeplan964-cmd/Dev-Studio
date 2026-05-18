@@ -1,8 +1,8 @@
 import { db, pool } from "./index.js";
 import { interviewQuestions } from "../../shared/schema/learning.js";
-import { seedInterviewQuestions } from "../../src/data/seeds/interview-core.js";
-import { seedInterviewExtra } from "../../src/data/seeds/interview-extra.js";
-import { DEFAULT_QUESTIONS } from "../../src/constants/behavioral.js";
+import { seedInterviewQuestions } from "../../src/data/tech/interview-core.js";
+import { seedInterviewExtra } from "../../src/data/tech/interview-extra.js";
+import { DEFAULT_QUESTIONS } from "../../src/data/soft/behavioral.js";
 
 async function seedGlobalInterviewQuestions() {
   const existing = await db.select({ id: interviewQuestions.id }).from(interviewQuestions).limit(1);

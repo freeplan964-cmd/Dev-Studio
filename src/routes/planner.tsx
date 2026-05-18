@@ -23,7 +23,7 @@ import type { PlannerTask, TaskStatus, TaskCategory } from "@/types/planner";
 import {
   CATEGORY_LABELS, CATEGORY_ICON_COMPONENTS, CATEGORY_SECTION_STYLES,
   DAILY_PARTS
-} from "@/constants/planner";
+} from "@/data/planner/planner";
 import { toDateStr, addDays, getWeekTheme, normCategory } from "@/lib/utils/planner";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";

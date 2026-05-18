@@ -1,6 +1,6 @@
 import { Check, Trash2, ChevronRight, Clock, Pencil, GripVertical } from "lucide-react";
 import type { PlannerTask } from "@/types/planner";
-import { PRIORITY_COLORS, CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_ICON_COMPONENTS } from "@/constants/planner";
+import { PRIORITY_COLORS, CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_ICON_COMPONENTS } from "@/data/planner/planner";
 import { formatMinutes } from "@/lib/utils/planner";
 import { cn } from "@/lib/utils";
 import { useSortable } from "@dnd-kit/sortable";
