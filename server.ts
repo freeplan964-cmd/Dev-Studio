@@ -54,8 +54,11 @@ if (isProd) {
     server: {
       middlewareMode: true,
       hmr: {
+        server: undefined,
         clientPort: 443,
+        protocol: "wss",
         host: process.env.REPLIT_DEV_DOMAIN,
+        path: "/_hmr",
       },
     },
     appType: "spa",

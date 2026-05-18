@@ -4,11 +4,7 @@ import * as db from "@/lib/api";
 import { Difficulty, FocusArea } from "@/types/common";
 import { Prompt, Agent } from "@/types/tools";
 import { seedPrompts, seedAgents, seedComponents, seedSnippets, seedTemplates } from "@/data/seeds/tools";
-import { seedInterviewQuestions } from "@/data/seeds/interview-core";
-import { seedInterviewExtra } from "@/data/seeds/interview-extra";
 import { seedConnectors, seedSocialDrafts, seedMailTemplates } from "@/data/seeds/extras";
-
-type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 let _initInFlight = false;
 
@@ -178,12 +174,6 @@ export const createCoreSlice: StateCreator<ForgeState, [["zustand/persist", unkn
       ...t,
       user_id: 'local'
     }));
-    const interviewQsData = [...seedInterviewQuestions, ...seedInterviewExtra].map(({ id, ...q }) => ({
-      ...q,
-      user_id: 'local',
-      domain: q.area || q.category || 'frontend',
-      answer_depths: (q.answerDepths || []) as unknown as Json
-    }));
     const connectorsData = seedConnectors.map(({ id: _id, ...c }) => ({
       ...c,
       user_id: 'local',
@@ -205,7 +195,6 @@ export const createCoreSlice: StateCreator<ForgeState, [["zustand/persist", unkn
         db.upsertComponents(componentsData),
         db.upsertSnippets(snippetsData),
         db.upsertTemplates(templatesData),
-        db.upsertInterviewQuestions(interviewQsData),
         db.upsertConnectors(connectorsData),
         db.upsertSocialDrafts(socialDraftsData),
         db.upsertMailTemplates(mailTemplatesData),

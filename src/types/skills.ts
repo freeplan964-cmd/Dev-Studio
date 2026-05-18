@@ -64,5 +64,6 @@ export interface SkillAreaData {
     tags: string[];
     concepts?: SkillConcept[];
     resources?: SkillResource[];
+    checklist?: SkillChecklistItem[];
   }[];
 }

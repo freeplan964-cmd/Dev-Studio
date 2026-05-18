@@ -48,4 +48,3 @@ run = ["node", "--import", "tsx/esm", "server.ts"]
 [userenv]
 
 [userenv.shared]
-JWT_SECRET = "64d09da2f5b684c233f7a522cde1fb756e8550257e7a9ae637eb51e8c653970cc560e1571502f91dac59218a1f60e9a4dfa88e2a82357e0abadc778df4a5dee0"
