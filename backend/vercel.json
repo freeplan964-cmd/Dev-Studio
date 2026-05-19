@@ -5,7 +5,6 @@
   "outputDirectory": ".",
   "functions": {
     "src/index.ts": {
-      "runtime": "@vercel/node@5",
       "includeFiles": "src/**"
     }
   },
