@@ -153,6 +153,23 @@ export const ASSET_KINDS = [
 ] as const;
 export type AssetKind = (typeof ASSET_KINDS)[number];
 
+// --- Notification Enums ---
+
+export const NOTIFICATION_TYPES = [
+  "agent_completed",
+  "job_status_changed",
+  "interview_reminder",
+  "cv_generated",
+  "planner_due",
+  "offer_updated",
+  "service_updated",
+  "chat_reply",
+  "system_info",
+  "system_warning",
+  "system_error",
+] as const;
+export type NotificationType = (typeof NOTIFICATION_TYPES)[number];
+
 // --- Activity / Audit Log Enums ---
 
 export const ACTIVITY_ACTIONS = [

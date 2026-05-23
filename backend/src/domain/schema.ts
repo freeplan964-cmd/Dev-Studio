@@ -8,3 +8,4 @@ export * from "./schema/cv.js";
 export * from "./schema/planner.js";
 export * from "./schema/chat.js";
 export * from "./schema/activity.js";
+export * from "./schema/notifications.js";
