@@ -160,14 +160,134 @@ export const frontendArea: SkillAreaData = {
       label: "Vue.js",
       color: "border-primary/40 bg-primary/10 text-primary",
       accent: "border-primary/30",
-      tags: ["vue"],
+      tags: ["vue", "composition-api", "options-api", "reactivity", "pinia", "directives"],
+      concepts: [
+        {
+          title: "Composition API vs Options API",
+          body: "Options API organizes code by option type (data, methods, computed, watch) — intuitive for simple components but scatters related logic. Composition API (Vue 3) uses setup() and composables to co-locate logic by feature. Better TypeScript support and easier to extract reusable logic. Composition API is recommended for all new Vue 3 projects.",
+        },
+        {
+          title: "Reactivity System (Proxy-based)",
+          body: "Vue 3 uses ES Proxy for automatic dependency tracking. reactive() wraps objects in a Proxy — accessing a property inside computed/watchEffect registers it as a dependency. ref() wraps primitives in an object with a .value getter/setter. Computed values are lazy and cached. The system re-renders only the components whose reactive state changed.",
+        },
+        {
+          title: "Pinia State Management",
+          body: "Pinia is the official Vue state management library (Vuex successor). Stores are defined with defineStore(id, { state, getters, actions }). No mutations — just actions that directly modify state. Full TypeScript inference, devtools integration, composables-based design. Lighter and simpler than Vuex.",
+        },
+        {
+          title: "Key Directives",
+          body: "v-if/v-else: removes/inserts DOM (use for infrequent toggles). v-show: toggles CSS display (use for frequent toggles). v-for with :key: list rendering — always add a stable key. v-bind (:): dynamic attributes/props. v-on (@): event listeners. v-model: two-way binding for form inputs. v-slot: scoped slots for flexible component APIs.",
+        },
+        {
+          title: "Computed vs Watchers",
+          body: "Computed: declarative derived values, cached until reactive dependencies change, return a value. Use for derived UI data. watch: imperative side-effects on value change, use for async operations (API calls). watchEffect: runs immediately and re-runs when any reactive dependency accessed inside changes. Prefer computed over watch wherever possible.",
+        },
+        {
+          title: "Component Communication",
+          body: "Parent → Child: props (defineProps). Child → Parent: emit (defineEmits, $emit). Siblings / Cross-tree: Pinia store or provide/inject. provide/inject passes data down the component tree without prop-drilling — ideal for plugin-level or feature-level shared state.",
+        },
+      ],
+      resources: [
+        {
+          label: "Vue 3 Official Docs",
+          url: "https://vuejs.org/guide/introduction",
+          desc: "Official guide covering Composition API, reactivity, and ecosystem.",
+        },
+        {
+          label: "Pinia Docs",
+          url: "https://pinia.vuejs.org",
+          desc: "Official Pinia state management documentation with recipes.",
+        },
+        {
+          label: "Vue School",
+          url: "https://vueschool.io",
+          desc: "Video courses on Vue 3, Nuxt, and Composition API patterns.",
+        },
+        {
+          label: "VueUse",
+          url: "https://vueuse.org",
+          desc: "Collection of 200+ composable utilities for Vue — essential reference.",
+        },
+      ],
+      checklist: [
+        { id: "v-composition", label: "Use Composition API with <script setup> (not Options API)" },
+        { id: "v-key", label: "Stable unique :key on all v-for loops (never index for reorderable lists)" },
+        { id: "v-pinia", label: "Global state managed with Pinia (not Vuex)" },
+        { id: "v-computed", label: "Derived values use computed() — not methods called in template" },
+        { id: "v-emit", label: "Child-to-parent via defineEmits — no direct parent mutation" },
+        { id: "v-lazy", label: "Routes lazy-loaded with defineAsyncComponent or dynamic import" },
+        { id: "v-show", label: "v-show for frequent toggles; v-if for conditional rendering" },
+        { id: "v-devtools", label: "Vue DevTools used to inspect component tree and state" },
+        { id: "v-types", label: "Props fully typed with defineProps<{ ... }>()" },
+        { id: "v-vueuse", label: "VueUse composables used before writing custom reactive utils" },
+      ],
     },
     {
       id: "svelte",
       label: "Svelte",
       color: "border-primary/40 bg-primary/10 text-primary",
       accent: "border-primary/30",
-      tags: ["svelte"],
+      tags: ["svelte", "compiler", "runes", "stores", "svelte5"],
+      concepts: [
+        {
+          title: "Compiler, Not a Runtime",
+          body: "Svelte is a compiler — it transforms .svelte files into optimized vanilla JavaScript at build time. No virtual DOM, no runtime diffing. Updates are surgical direct DOM mutations. Result: smaller bundles, faster runtime, and zero framework overhead at runtime. Tradeoff: smaller ecosystem than React/Vue.",
+        },
+        {
+          title: "Svelte 5 Runes",
+          body: "Runes replace Svelte 4's implicit reactivity with explicit primitives: $state() for reactive state, $derived() for computed values (replaces $:), $effect() for side effects, $props() for component props. More predictable than Svelte 4's 'assigning to a variable = reactive'. Better TypeScript support.",
+        },
+        {
+          title: "Stores (Svelte 4 / Compatible)",
+          body: "Stores are observable objects with a subscribe method. Built-ins: writable(value), readable(value, start), derived(stores, fn). The $ prefix auto-subscribes and unsubscribes in templates: $count auto-manages the lifecycle. Custom stores wrap writable with domain logic. No context/provider needed for global state.",
+        },
+        {
+          title: "Two-Way Binding",
+          body: "bind:value on inputs creates two-way data binding without explicit event handlers. bind:this captures a DOM element reference. Component bindings (bind:checked, bind:group) work on both native elements and custom components. Use sparingly — prefer explicit event handling for clarity in larger components.",
+        },
+        {
+          title: "Transitions & Animations",
+          body: "Svelte has built-in transition directives: transition:fade, fly, slide, scale, draw (SVG). in: / out: for enter/leave separately. animate:flip for list reordering animations. Custom transitions are functions returning CSS delay/duration/css or tick callbacks. Minimal code for polished, accessible animations.",
+        },
+        {
+          title: "SvelteKit (Meta-framework)",
+          body: "SvelteKit is Svelte's equivalent to Next.js: file-based routing, SSR/SSG/ISR, form actions (like Server Actions), progressive enhancement, adapter-based deployment (Vercel, Node, Cloudflare, static). load functions run on server or client based on context. Recommended for all production Svelte apps.",
+        },
+      ],
+      resources: [
+        {
+          label: "Svelte Docs",
+          url: "https://svelte.dev/docs",
+          desc: "Official Svelte documentation including Runes and migration guides.",
+        },
+        {
+          label: "SvelteKit Docs",
+          url: "https://kit.svelte.dev/docs",
+          desc: "SvelteKit full-stack framework documentation.",
+        },
+        {
+          label: "Svelte Tutorial",
+          url: "https://learn.svelte.dev",
+          desc: "Official interactive tutorial covering all Svelte and SvelteKit concepts.",
+        },
+        {
+          label: "Svelte Society",
+          url: "https://sveltesociety.dev",
+          desc: "Community recipes, packages, and a component directory.",
+        },
+      ],
+      checklist: [
+        { id: "sv-runes", label: "Use Svelte 5 Runes ($state, $derived, $effect) in new code" },
+        { id: "sv-key", label: "{#each items as item (item.id)} — always key lists" },
+        { id: "sv-lazy", label: "Routes and heavy components lazy-loaded with dynamic import" },
+        { id: "sv-sveltekit", label: "Production apps use SvelteKit (not bare Svelte)" },
+        { id: "sv-actions", label: "Form actions used for mutations — not fetch in event handlers" },
+        { id: "sv-a11y", label: "Svelte a11y warnings resolved — no aria-label missing" },
+        { id: "sv-transitions", label: "Transitions added to lists and modal-like UI for polish" },
+        { id: "sv-types", label: "Props typed via $props() with TypeScript interfaces" },
+        { id: "sv-stores", label: "Cross-component state via Svelte stores or Rune-based context" },
+        { id: "sv-bundle", label: "Bundle analyzed — no unexpected large dependencies" },
+      ],
     },
     {
       id: "nextjs",

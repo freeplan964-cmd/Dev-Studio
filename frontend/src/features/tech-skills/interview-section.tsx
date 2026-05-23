@@ -11,10 +11,11 @@ import { DIFFICULTIES } from "@/data/tech/interview";
 
 interface Props {
   data: SkillAreaData;
+  subAreaId?: string;
   triggerAdd?: number;
 }
 
-export function InterviewSection({ data, triggerAdd }: Props) {
+export function InterviewSection({ data, subAreaId, triggerAdd }: Props) {
   const { interviewQuestions, toggleFavoriteInterviewQuestion, deleteInterviewQuestion } =
     useForge();
 

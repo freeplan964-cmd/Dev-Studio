@@ -339,7 +339,7 @@ export function SkillArea({
             )}
             {activeSection === "checklist" && <ChecklistSection data={data} />}
             {activeSection === "interview" && (
-              <InterviewSection data={data} triggerAdd={addTrigger} />
+              <InterviewSection data={data} subAreaId={subArea} triggerAdd={addTrigger} />
             )}
             {activeSection === "resources" && <ResourcesSection data={data} subArea={subArea} />}
           </div>

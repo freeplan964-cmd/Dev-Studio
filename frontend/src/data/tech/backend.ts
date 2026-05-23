@@ -227,14 +227,134 @@ export const backendArea: SkillAreaData = {
       label: "Python/FastAPI",
       color: "border-primary/40 bg-primary/10 text-primary",
       accent: "border-primary/30",
-      tags: ["python", "fastapi"],
+      tags: ["python", "fastapi", "django"],
+      concepts: [
+        {
+          title: "FastAPI Core Concepts",
+          body: "FastAPI is an ASGI framework built on Starlette + Pydantic. Automatic OpenAPI/Swagger docs generated from type hints. Native async/await support via ASGI. Pydantic models provide automatic request validation, serialization, and error responses. Dependency injection via Depends() for shared logic (auth, DB sessions).",
+        },
+        {
+          title: "Pydantic Validation",
+          body: "Pydantic uses Python type hints for runtime data validation. Define models as classes inheriting BaseModel. Field types, validators, and constraints are enforced automatically. V2 (pydantic-v2) is significantly faster (Rust core). Use model_validator for cross-field validation, field_validator for single fields.",
+        },
+        {
+          title: "Async & ASGI",
+          body: "ASGI (Asynchronous Server Gateway Interface) enables async request handling. async def route handlers enable concurrent I/O without threads. Use asyncpg, motor, or httpx for async DB/HTTP operations. Run with uvicorn (single) or gunicorn + uvicorn workers (production). Never mix blocking I/O (requests, psycopg2) in async handlers.",
+        },
+        {
+          title: "Django Architecture (MTV)",
+          body: "Django uses MTV: Model (ORM/DB layer), Template (HTML rendering), View (request handler). The ORM maps Python classes to DB tables. Django Admin auto-generates a CRUD UI from models. Middleware pipeline processes every request/response. Django REST Framework (DRF) extends Django for API development.",
+        },
+        {
+          title: "Django ORM & N+1",
+          body: "Django ORM maps DB rows to Python objects. N+1 problem: querying N objects then fetching a related field per object = N+1 queries. Fix with select_related() (SQL JOIN for ForeignKey) or prefetch_related() (separate query for ManyToMany/reverse FK). Use django-debug-toolbar to detect N+1 in development.",
+        },
+        {
+          title: "Python Packaging & Virtual Envs",
+          body: "Use pip + venv or Poetry for dependency management. requirements.txt for simple projects; pyproject.toml + poetry.lock for complex ones. Always pin versions in production (pip freeze > requirements.txt). Use python-dotenv or pydantic-settings for config. Type-annotate all functions — run mypy in CI for static type checking.",
+        },
+      ],
+      resources: [
+        {
+          label: "FastAPI Docs",
+          url: "https://fastapi.tiangolo.com",
+          desc: "Official FastAPI documentation with tutorials and API reference.",
+        },
+        {
+          label: "Django Docs",
+          url: "https://docs.djangoproject.com",
+          desc: "Official Django documentation — models, views, ORM, and deployment.",
+        },
+        {
+          label: "Real Python",
+          url: "https://realpython.com",
+          desc: "Tutorials and articles on FastAPI, Django, async Python, and more.",
+        },
+        {
+          label: "Pydantic Docs",
+          url: "https://docs.pydantic.dev",
+          desc: "Pydantic V2 data validation and settings management reference.",
+        },
+      ],
+      checklist: [
+        { id: "py-async", label: "async def used for all route handlers (no blocking I/O)" },
+        { id: "py-pydantic", label: "All request bodies and responses use Pydantic models" },
+        { id: "py-deps", label: "Auth, DB session, and common logic via FastAPI Depends()" },
+        { id: "py-select", label: "Django: select_related/prefetch_related on all FK/M2M queries" },
+        { id: "py-env", label: "Config via pydantic-settings (BaseSettings) — not os.environ directly" },
+        { id: "py-migrate", label: "DB schema managed via Django migrations or Alembic" },
+        { id: "py-types", label: "Type annotations on all functions; mypy clean in CI" },
+        { id: "py-tests", label: "Tests with pytest + pytest-asyncio for async routes" },
+        { id: "py-uvicorn", label: "Production: gunicorn + uvicorn workers (not uvicorn alone)" },
+        { id: "py-secrets", label: "Secrets via environment variables — never hardcoded" },
+      ],
     },
     {
       id: "go",
       label: "Go",
       color: "border-primary/40 bg-primary/10 text-primary",
       accent: "border-primary/30",
-      tags: ["go"],
+      tags: ["go", "golang"],
+      concepts: [
+        {
+          title: "Goroutines & Channels",
+          body: "Goroutines are lightweight, multiplexed onto OS threads by the Go scheduler. Launch with go fn(). Channels are typed conduits for safe goroutine communication: ch <- value (send), <-ch (receive). Buffered channels (make(chan T, n)) don't block until full. Use select for non-blocking multi-channel operations.",
+        },
+        {
+          title: "Interfaces & Composition",
+          body: "Go uses implicit interface satisfaction — a type implements an interface by having the required methods (no implements keyword). This enables duck typing with compile-time safety. Compose behavior via embedding structs and interfaces. The io.Reader/Writer interfaces are the canonical example of small, composable interfaces.",
+        },
+        {
+          title: "Error Handling",
+          body: "Go uses explicit error returns — functions return (T, error). Always check errors: if err != nil { return nil, err }. Use fmt.Errorf('context: %w', err) to wrap errors with context. errors.Is() and errors.As() unwrap the chain. Avoid panic in libraries; use it only for truly unrecoverable states.",
+        },
+        {
+          title: "Standard Library HTTP",
+          body: "Go's net/http package is production-ready without a framework. ServeMux routes requests; http.HandlerFunc wraps functions as handlers. Popular routers: Chi (lightweight, middleware composable), Gin (fast, Rails-like). Frameworks add middleware, binding, and DI but Go's stdlib handles most production needs.",
+        },
+        {
+          title: "Context Propagation",
+          body: "context.Context carries deadlines, cancellation signals, and request-scoped values across API boundaries. Always pass ctx as the first parameter to functions that do I/O. Use context.WithTimeout() for DB queries and HTTP calls. A canceled context causes database drivers and HTTP clients to abort automatically.",
+        },
+        {
+          title: "Modules & Build",
+          body: "Go modules (go.mod/go.sum) manage dependencies. go get adds dependencies; go mod tidy cleans unused ones. go build compiles to a single static binary — no runtime required. Cross-compile with GOOS/GOARCH env vars. The standard build produces production-ready binaries: docker scratch images are common.",
+        },
+      ],
+      resources: [
+        {
+          label: "Go Official Docs",
+          url: "https://go.dev/doc/",
+          desc: "Official Go documentation, spec, and standard library reference.",
+        },
+        {
+          label: "Go by Example",
+          url: "https://gobyexample.com",
+          desc: "Annotated Go programs covering all core language concepts.",
+        },
+        {
+          label: "Effective Go",
+          url: "https://go.dev/doc/effective_go",
+          desc: "Official guide to writing idiomatic Go code.",
+        },
+        {
+          label: "awesome-go",
+          url: "https://awesome-go.com",
+          desc: "Curated list of Go frameworks, libraries, and tools.",
+        },
+      ],
+      checklist: [
+        { id: "go-errors", label: "All errors checked — no blank identifier _ on error returns" },
+        { id: "go-ctx", label: "context.Context as first param on all I/O functions" },
+        { id: "go-timeout", label: "context.WithTimeout on all DB queries and HTTP calls" },
+        { id: "go-goroutine", label: "All goroutines have a clear lifetime and cancellation path" },
+        { id: "go-race", label: "go test -race passes — no data races" },
+        { id: "go-vet", label: "go vet and staticcheck pass in CI" },
+        { id: "go-binary", label: "Single statically-linked binary built for deployment" },
+        { id: "go-interfaces", label: "Interfaces defined at consumer (not producer) — small and focused" },
+        { id: "go-tidy", label: "go mod tidy run — go.sum committed and up to date" },
+        { id: "go-bench", label: "Critical paths benchmarked with go test -bench" },
+      ],
     },
   ],
 };

@@ -1,6 +1,4 @@
 import {
-  Mic,
-  Handshake,
   Swords,
   Wifi,
   Terminal,
@@ -14,10 +12,6 @@ import { SkillArea } from "@/features/tech-skills/skill-area";
 import { SOFT_SKILLS_DATA } from "@/data/soft";
 
 export const SOFT_SKILL_GROUPS: Record<string, { id: string; label: string; icon: any }[]> = {
-  communication: [
-    { id: "speaking", label: "Public Speaking", icon: Mic },
-    { id: "negotiation", label: "Negotiation", icon: Handshake },
-  ],
   leadership: [
     { id: "time", label: "Time Management", icon: Clock },
     { id: "growth", label: "Growth Mindset", icon: Sparkles },
