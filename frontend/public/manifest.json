@@ -1,0 +1,34 @@
+{
+  "name": "Dev Studio",
+  "short_name": "DevStudio",
+  "description": "Your personal AI-powered development hub — prompts, agents, CV, planner, skills and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#111111",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "developer", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Planner",
+      "short_name": "Planner",
+      "url": "/planner",
+      "description": "Open your daily planner"
+    },
+    {
+      "name": "Tech Skills",
+      "short_name": "Skills",
+      "url": "/tech-skills",
+      "description": "Open your skills hub"
+    }
+  ]
+}

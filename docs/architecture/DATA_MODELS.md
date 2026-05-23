@@ -1,368 +1,115 @@
-# Data Models
+# 💾 Database Schema and Data Models
 
-Complete reference for all data types and schemas used in Dev Studio.
-
-## Asset Types
-
-### Prompt
-
-Versioned prompt library with variables and usage tracking.
-
-```typescript
-interface Prompt {
-  id: string; // Unique identifier
-  title: string; // Prompt title
-  description: string; // Short description
-  category: string; // Category (e.g., "API Design")
-  tags: string[]; // Search tags
-  body: string; // Prompt content
-  variables: string[]; // Template variables (e.g., ["language", "framework"])
-  model?: string; // Preferred AI model
-  favorite?: boolean; // Marked as favorite
-  usageCount: number; // Times used
-  versions: {
-    // Version history
-    id: string;
-    createdAt: number;
-    body: string;
-    note?: string;
-  }[];
-  createdAt: number; // Creation timestamp
-  updatedAt: number; // Last update timestamp
-}
-```
-
-**Example:**
-
-```json
-{
-  "id": "prompt_abc123",
-  "title": "API Design Review",
-  "description": "Review API design for best practices",
-  "category": "Backend",
-  "tags": ["api", "design", "review"],
-  "body": "Review this {{language}} API for:\n- RESTful principles\n- Error handling\n- Authentication",
-  "variables": ["language"],
-  "model": "gpt-4",
-  "favorite": true,
-  "usageCount": 42,
-  "versions": [],
-  "createdAt": 1715000000000,
-  "updatedAt": 1715000000000
-}
-```
-
-### Agent
-
-Custom AI agent with system prompt and tools.
-
-```typescript
-interface Agent {
-  id: string; // Unique identifier
-  name: string; // Agent name
-  role: string; // Agent role/description
-  systemPrompt: string; // System prompt for AI
-  tools: string[]; // Available tools
-  model: string; // AI model (e.g., "gpt-4")
-  temperature: number; // Temperature (0-2)
-  status: "active" | "idle" | "draft"; // Agent status
-  tags: string[]; // Search tags
-  createdAt: number; // Creation timestamp
-  updatedAt: number; // Last update timestamp
-}
-```
-
-**Example:**
-
-```json
-{
-  "id": "agent_xyz789",
-  "name": "Code Reviewer",
-  "role": "Reviews code for quality and best practices",
-  "systemPrompt": "You are an expert code reviewer...",
-  "tools": ["analyze_code", "suggest_improvements"],
-  "model": "gpt-4",
-  "temperature": 0.7,
-  "status": "active",
-  "tags": ["code-review", "quality"],
-  "createdAt": 1715000000000,
-  "updatedAt": 1715000000000
-}
-```
-
-### Component
-
-Reusable code component with dependencies.
-
-```typescript
-interface ComponentAsset {
-  id: string; // Unique identifier
-  name: string; // Component name
-  description: string; // Description
-  category: string; // Category (e.g., "Form")
-  tags: string[]; // Search tags
-  code: string; // Component code
-  dependencies: string[]; // Required packages
-  favorite?: boolean; // Marked as favorite
-  usageCount: number; // Times used
-  createdAt: number; // Creation timestamp
-  updatedAt: number; // Last update timestamp
-}
-```
-
-**Example:**
-
-```json
-{
-  "id": "comp_def456",
-  "name": "Form Input",
-  "description": "Reusable form input component",
-  "category": "Form",
-  "tags": ["form", "input", "react"],
-  "code": "export const FormInput = ({ ... }) => { ... }",
-  "dependencies": ["react", "react-hook-form"],
-  "favorite": true,
-  "usageCount": 15,
-  "createdAt": 1715000000000,
-  "updatedAt": 1715000000000
-}
-```
-
-### Template
-
-Project template with tech stack.
-
-```typescript
-interface Template {
-  id: string; // Unique identifier
-  name: string; // Template name
-  description: string; // Description
-  stack: string[]; // Tech stack (e.g., ["React", "Node", "PostgreSQL"])
-  tags: string[]; // Search tags
-  structure: string; // Project structure description
-  notes: string; // Additional notes
-  createdAt: number; // Creation timestamp
-  updatedAt: number; // Last update timestamp
-}
-```
-
-**Example:**
-
-```json
-{
-  "id": "tmpl_ghi789",
-  "name": "Full-Stack Web App",
-  "description": "Modern full-stack web application",
-  "stack": ["React", "Node.js", "PostgreSQL", "Docker"],
-  "tags": ["fullstack", "web", "production"],
-  "structure": "src/\n  components/\n  pages/\n  api/\nserver/\n  routes/\n  middleware/",
-  "notes": "Includes authentication and database setup",
-  "createdAt": 1715000000000,
-  "updatedAt": 1715000000000
-}
-```
-
-### Snippet
-
-Code snippet by language.
-
-```typescript
-interface Snippet {
-  id: string; // Unique identifier
-  title: string; // Snippet title
-  language: string; // Programming language
-  description: string; // Description
-  code: string; // Code content
-  tags: string[]; // Search tags
-  createdAt: number; // Creation timestamp
-  updatedAt: number; // Last update timestamp
-}
-```
-
-**Example:**
-
-```json
-{
-  "id": "snip_jkl012",
-  "title": "Fetch with Retry",
-  "language": "typescript",
-  "description": "Fetch with automatic retry logic",
-  "code": "async function fetchWithRetry(...) { ... }",
-  "tags": ["fetch", "retry", "async"],
-  "createdAt": 1715000000000,
-  "updatedAt": 1715000000000
-}
-```
-
-### Interview Question
-
-Q&A for interview preparation.
-
-```typescript
-interface InterviewQuestion {
-  id: string; // Unique identifier
-  question: string; // Question text
-  answer: string; // Answer text
-  answerDepths?: {
-    // Multiple answer depths
-    id: string;
-    label: string; // Depth level (e.g., "Junior", "Senior")
-    body: string; // Answer for this level
-  }[];
-  area: FocusArea; // Focus area
-  difficulty: Difficulty; // Difficulty level
-  tags: string[]; // Search tags
-  category?: string; // Category
-  favorite?: boolean; // Marked as favorite
-  createdAt: number; // Creation timestamp
-}
-
-type FocusArea = "frontend" | "backend" | "devops" | "testing" | "database" | "general";
-type Difficulty = "junior" | "mid" | "senior";
-```
-
-**Example:**
-
-```json
-{
-  "id": "iq_mno345",
-  "question": "What is React?",
-  "answer": "React is a JavaScript library for building user interfaces...",
-  "answerDepths": [
-    {
-      "id": "depth_1",
-      "label": "Junior",
-      "body": "React is a library for building UIs with components"
-    },
-    {
-      "id": "depth_2",
-      "label": "Senior",
-      "body": "React is a declarative, component-based library with virtual DOM..."
-    }
-  ],
-  "area": "frontend",
-  "difficulty": "junior",
-  "tags": ["react", "javascript", "frontend"],
-  "category": "Frameworks",
-  "favorite": false,
-  "createdAt": 1715000000000
-}
-```
-
-## Database Schema
-
-### Profiles Table
-
-Stores user profile information.
-
-```sql
-CREATE TABLE profiles (
-  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
-  display_name TEXT,
-  avatar_url TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-```
-
-**Fields:**
-
-- `id` - User ID from Supabase Auth
-- `display_name` - User's display name
-- `avatar_url` - URL to user's avatar
-- `created_at` - Account creation time
-- `updated_at` - Last profile update
-
-## Storage
-
-### localStorage
-
-All asset data is stored in browser localStorage under key `forgedev-store-v3`.
-
-**Structure:**
-
-```json
-{
-  "state": {
-    "prompts": [...],
-    "agents": [...],
-    "components": [...],
-    "templates": [...],
-    "snippets": [...],
-    "interviewQuestions": [...]
-  }
-}
-```
-
-**Limits:**
-
-- ~5-10MB per browser
-- Per-domain storage
-- Persists across sessions
-- Cleared when browser data is cleared
-
-## Type Definitions
-
-All types are defined in `src/lib/types.ts`:
-
-```typescript
-export type AssetKind = "prompt" | "agent" | "component" | "template" | "snippet";
-export type FocusArea = "frontend" | "backend" | "devops" | "testing" | "database" | "general";
-export type Difficulty = "junior" | "mid" | "senior";
-```
-
-## Relationships
-
-```
-User (Supabase Auth)
-  ↓
-Profile (Database)
-  ↓
-Assets (localStorage)
-  ├─ Prompts
-  ├─ Agents
-  ├─ Components
-  ├─ Templates
-  ├─ Snippets
-  └─ Interview Questions
-```
-
-## Timestamps
-
-All timestamps are Unix milliseconds (not seconds):
-
-```typescript
-// Current time
-const now = Date.now(); // e.g., 1715000000000
-
-// Convert to Date
-const date = new Date(timestamp);
-
-// Format
-const formatted = new Date(timestamp).toLocaleString();
-```
-
-## IDs
-
-All IDs are generated with prefix and random suffix:
-
-```typescript
-// Format: prefix_randomstring
-// Examples:
-// - prompt_abc123def456
-// - agent_xyz789uvw012
-// - comp_ghi345jkl678
-```
-
-## Validation
-
-All data is validated with Zod schemas in `src/lib/types.ts`.
-
-## Related Documentation
-
-- [Architecture Overview](./README.md) - System design and data flow
-- [Setup Guide](../setup/README.md) - Local setup and configuration
+> [!NOTE]
+> Dev Studio utilizes Drizzle ORM to define, migrate, and query PostgreSQL tables. The schemas are split into modular files under **`backend/src/domain/schema/`** to optimize maintenance and build performance.
 
 ---
 
-**Last updated**: May 2026
+## 📂 Schema File Map
+
+All database tables are defined in standard Drizzle format inside:
+- `backend/src/domain/schema/auth.ts` — User profiles and verification states.
+- `backend/src/domain/schema/core.ts` — Prompts, agents, templates, components, and snippets.
+- `backend/src/domain/schema/learning.ts` — Interview questions and progress tracking.
+
+---
+
+## 👥 Authentication Models
+
+### 📍 `auth_users`
+Stores user profile credentials, Google OAuth logins, and validation states.
+
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `uuid` | Primary Key, Default Random | Unique identifier. |
+| `email` | `text` | Unique, Index | User's email address. |
+| `password_hash` | `text` | Nullable | Encrypted password string. Null for Google OAuth accounts. |
+| `google_id` | `text` | Unique, Nullable | Google OAuth identifier. |
+| `display_name` | `text` | Nullable | Profile name displayed in dashboard views. |
+| `avatar_url` | `text` | Nullable | URL to user's profile image. |
+| `is_verified` | `boolean` | Not Null, Default `false` | Email verification flag. |
+| `verification_token` | `text` | Nullable | Temporary token for email activation. |
+| `verification_token_expires`| `timestamp` | Nullable | Expiry date of active verification token. |
+| `created_at` | `timestamp` | Not Null, Default Now | Creation timestamp. |
+| `updated_at` | `timestamp` | Not Null, Default Now | Last update timestamp. |
+| `deleted_at` | `timestamp` | Nullable | Soft delete timestamp. |
+
+---
+
+## 🛠️ Core Business Models
+
+### 📍 `prompts`
+Maintains user prompt libraries, parameter lists, and favorite markers.
+
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `uuid` | Primary Key, Default Random | Unique identifier. |
+| `user_id` | `text` | Not Null, Index | ID of the owning user. |
+| `title` | `text` | Not Null | Prompt display title. |
+| `description` | `text` | Nullable | Long description of the prompt. |
+| `body` | `text` | Not Null | The actual prompt template text. |
+| `variables` | `text[]` | Default `[]` | Parsed template variables (e.g. `['topic', 'length']`). |
+| `category` | `text` | Nullable | Categorization label. |
+| `tags` | `text[]` | Default `[]` | Searchable tag labels. |
+| `favorite` | `boolean` | Default `false` | Pin flag. |
+| `usage_count` | `integer` | Default `0` | Number of times consumed. |
+| `versions` | `jsonb` | Default `[]` | Revision log history containing old body states. |
+
+### 📍 `agents`
+Stores system configuration parameters for custom AI Agents.
+
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `uuid` | Primary Key, Default Random | Unique identifier. |
+| `user_id` | `text` | Not Null, Index | Owning user ID. |
+| `name` | `text` | Not Null | Agent profile name. |
+| `role` | `text` | Nullable | The agent's core role description. |
+| `system_prompt` | `text` | Not Null | Custom instructions injected into system role context. |
+| `tools` | `text[]` | Default `[]` | Enabled integrations or runtime utility handlers. |
+| `model` | `text` | Nullable | Selected AI engine model (e.g. `gpt-4o`, `gpt-3.5-turbo`). |
+| `temperature` | `real` | Default `0.7` | Model response creativity temperature settings. |
+| `status` | `text` | Default `draft` | Active state: `draft`, `active`, or `archived`. |
+
+### 📍 `components`
+Stores reusable frontend React code snippets and metadata.
+
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `uuid` | Primary Key, Default Random | Unique identifier. |
+| `user_id` | `text` | Not Null, Index | Owning user ID. |
+| `name` | `text` | Not Null | Component title. |
+| `code` | `text` | Not Null | The source JSX/TSX React code. |
+| `dependencies` | `text[]` | Default `[]` | Required packages to run (e.g., `lucide-react`). |
+| `favorite` | `boolean` | Default `false` | Pin flag. |
+
+---
+
+## 🧠 Interview & Learning Prep Models
+
+### 📍 `interview_questions`
+Stores interview preparation questions, answers, and depth states.
+
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `id` | `uuid` | Primary Key, Default Random | Unique identifier. |
+| `user_id` | `text` | Nullable, Index | ID of the creator. Null for global seed questions. |
+| `question` | `text` | Not Null | The query string. |
+| `answer` | `text` | Not Null | Detailed baseline answer explanation. |
+| `difficulty` | `enum` | Default `mid` | Enum: `junior`, `mid`, `senior`. |
+| `area` | `enum` | Not Null | Category Enum: `frontend`, `backend`, `devops`, `database`. |
+| `answer_depths` | `jsonb` | Default `[]` | Graduated response depths (e.g., summary, detailed, advanced). |
+| `is_global` | `boolean` | Default `false`, Index | Set to `true` for standard system seed questions. |
+
+### 📍 `user_progress`
+Tracks user completion status across prep questions and tech roadmaps.
+
+| Column | Type | Constraints | Description |
+| :--- | :--- | :--- | :--- |
+| `user_id` | `text` | Not Null | Owning user identifier. |
+| `item_id` | `text` | Not Null | ID of the related item. |
+| `area_id` | `text` | Not Null | Category identifier (for easy aggregation). |
+| `completed` | `boolean` | Default `true` | Progress completion flag. |
+| `updated_at` | `timestamp` | Not Null, Default Now | Update timestamp. |
+
+> [!NOTE]
+> The primary key for `user_progress` is composed of `(user_id, item_id)` to prevent double tracking records.

@@ -1,222 +1,48 @@
-# Integrations Guide
+# 🔌 Integration Guide
 
-Complete guide for integrating Dev Studio with external services.
-
-## Available Integrations
-
-### Slack
-
-Connect Dev Studio with Slack for notifications and team collaboration.
-
-**Features:**
-
-- Deployment notifications
-- Build status updates
-- Error alerts
-- Team notifications
-- Custom workflows
-
-**Setup Time:** 15-20 minutes
-
-**Difficulty:** Beginner
-
-**Documentation:**
-
-- [Slack Setup Guide](./SLACK_SETUP.md) - Step-by-step setup
-- [Slack Credentials Reference](./SLACK_CREDENTIALS.md) - Credential management
-
-**Quick Start:**
-
-1. Create Slack app at [api.slack.com/apps](https://api.slack.com/apps)
-2. Get credentials (Bot Token, Webhook URL, Signing Secret)
-3. Add to GitHub Secrets
-4. Update workflows
-5. Test integration
+> [!NOTE]
+> Dev Studio can be connected to external services to automate notifications and log tasks. This document covers Slack Webhook setup and secure outbound patterns within our Clean Architecture.
 
 ---
 
-## Integration Overview
+## 💬 Slack Notification Webhooks
 
-```
-Dev Studio
-    ↓
-GitHub Actions
-    ↓
-Slack Webhook
-    ↓
-Slack Workspace
-    ↓
-Team Notifications
-```
+Dev Studio can dispatch automated notifications to a Slack channel when key system events occur (e.g. system status updates, task completions).
 
-## Supported Services
+### 🛠️ Configuration Setup
 
-| Service   | Status      | Documentation                   |
-| --------- | ----------- | ------------------------------- |
-| Slack     | ✅ Complete | [Slack Setup](./SLACK_SETUP.md) |
-| Sentry    | 🔄 Planned  | Coming soon                     |
-| DataDog   | 🔄 Planned  | Coming soon                     |
-| PagerDuty | 🔄 Planned  | Coming soon                     |
-| Discord   | 🔄 Planned  | Coming soon                     |
-
-## Quick Links
-
-### Setup Guides
-
-- [Slack Setup](./SLACK_SETUP.md) - Complete Slack integration
-- [Slack Credentials](./SLACK_CREDENTIALS.md) - Credential management
-
-### Configuration
-
-- [Environment Variables](../setup/ENVIRONMENT.md) - All environment variables
-- [GitHub Secrets](../devops/CICD.md) - GitHub Actions secrets
-
-### Deployment
-
-- [Deployment Guide](../deployment/README.md) - Production deployment
-- [DevOps Guide](../devops/README.md) - DevOps overview
-
-## Common Tasks
-
-### Send Slack Notification
-
-Using GitHub Actions:
-
-```yaml
-- name: Notify Slack
-  uses: slackapi/slack-github-action@v1
-  with:
-    payload: |
-      {
-        "text": "Deployment successful",
-        "blocks": [...]
-      }
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
-
-### Verify Slack Request
-
-In your application:
-
-```typescript
-import crypto from "crypto";
-
-function verifySlackRequest(req) {
-  const timestamp = req.headers["x-slack-request-timestamp"];
-  const signature = req.headers["x-slack-signature"];
-
-  const baseString = `v0:${timestamp}:${req.body}`;
-  const hmac = crypto
-    .createHmac("sha256", process.env.SLACK_SIGNING_SECRET)
-    .update(baseString)
-    .digest("hex");
-
-  return `v0=${hmac}` === signature;
-}
-```
-
-### Send Message to Slack
-
-Using webhook:
-
-```bash
-curl -X POST $SLACK_WEBHOOK_URL \
-  -H 'Content-type: application/json' \
-  -d '{
-    "text": "Dev Studio notification",
-    "blocks": [
-      {
-        "type": "section",
-        "text": {
-          "type": "mrkdwn",
-          "text": "*Deployment Successful* ✅"
-        }
-      }
-    ]
-  }'
-```
-
-## Troubleshooting
-
-### Integration Not Working
-
-1. Check credentials are correct
-2. Verify environment variables are set
-3. Check GitHub Actions logs
-4. Verify Slack app is installed
-5. Check Slack workspace permissions
-
-### Missing Notifications
-
-1. Verify webhook URL is correct
-2. Check message format is valid
-3. Verify channel exists
-4. Check app is in channel
-5. Review Slack app logs
-
-### Permission Errors
-
-1. Verify app has required scopes
-2. Check channel permissions
-3. Verify app is installed in workspace
-4. Reinstall app if needed
-
-## Best Practices
-
-1. **Use GitHub Secrets** - Never commit credentials
-2. **Verify Requests** - Use signing secret to verify Slack requests
-3. **Rotate Credentials** - Rotate tokens regularly
-4. **Monitor Activity** - Check logs for suspicious activity
-5. **Test Thoroughly** - Test integrations before production
-6. **Document Setup** - Document your integration setup
-7. **Keep Updated** - Update integrations when services change
-
-## Security
-
-### Credential Management
-
-- ✅ Store in GitHub Secrets
-- ✅ Store in `.env.local` (not committed)
-- ✅ Rotate regularly
-- ✅ Use signing secret for verification
-- ❌ Never commit to git
-- ❌ Never share publicly
-- ❌ Never log credentials
-
-### Request Verification
-
-Always verify requests from Slack:
-
-```typescript
-// Verify timestamp is recent (within 5 minutes)
-const timestamp = parseInt(req.headers["x-slack-request-timestamp"]);
-const now = Math.floor(Date.now() / 1000);
-if (Math.abs(now - timestamp) > 300) {
-  throw new Error("Request too old");
-}
-
-// Verify signature
-if (!verifySlackRequest(req)) {
-  throw new Error("Invalid signature");
-}
-```
-
-## Related Documentation
-
-- [Slack Setup Guide](./SLACK_SETUP.md) - Complete setup
-- [Slack Credentials](./SLACK_CREDENTIALS.md) - Credential reference
-- [Environment Variables](../setup/ENVIRONMENT.md) - Configuration
-- [GitHub Actions](../devops/CICD.md) - CI/CD setup
-- [Deployment Guide](../deployment/README.md) - Production deployment
-
-## Resources
-
-- [Slack API Documentation](https://api.slack.com)
-- [Slack Webhooks](https://api.slack.com/messaging/webhooks)
-- [Slack Bot Tokens](https://api.slack.com/authentication/token-types)
-- [GitHub Actions](https://docs.github.com/en/actions)
+1. **Register a Slack Application**:
+   Go to [api.slack.com/apps](https://api.slack.com/apps) and create a custom Slack app.
+2. **Activate Incoming Webhooks**:
+   Under the application features dashboard, navigate to **Incoming Webhooks** and switch the toggle to **Active**.
+3. **Generate a Webhook URL**:
+   Scroll to the bottom, click **Add New Webhook to Workspace**, select the target channel, and authorize the hook. Copy the generated URL string.
+4. **Define Local Environment Secret**:
+   Open your local **`backend/.env`** file and define `SLACK_WEBHOOK_URL`:
+   ```ini
+   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+   ```
+5. **Verify Request Signature (Optional)**:
+   To enable signature validation on incoming Slack webhooks, copy your **Signing Secret** from the Slack Basic Info panel and add it to `backend/.env`:
+   ```ini
+   SLACK_SIGNING_SECRET=your_slack_signing_secret_here
+   ```
 
 ---
 
-**Last updated**: May 2026
+## 🚀 Adding Custom Integrations
+
+Dev Studio enforces a secure, decoupled communication pattern for all integrations:
+
+> [!WARNING]
+> **Outbound Security Gate**: All outgoing API requests to third-party endpoints MUST originate server-side. Never execute direct outbound third-party API calls from client browser code.
+
+### 📝 Step-by-Step Integration Pattern
+
+To register a new integration safely:
+
+1. **Store Tokens Privately**: Add all credentials or API keys as private keys in your **`backend/.env`** file (e.g., `GITHUB_TOKEN=...`). Never check private keys into version control.
+2. **Implement an Infrastructure Client**: Create a service wrapper inside `backend/src/infrastructure/` (e.g., `backend/src/infrastructure/github/client.ts`) that initializes and manages HTTP request states.
+3. **Define a Controller**: Add a controller under `backend/src/presentation/controllers/` (e.g., `backend/src/presentation/controllers/GithubController.ts`) that reads the credentials securely using `process.env`, validates user session middleware context, and interacts with the infrastructure client.
+4. **Register the Routes**: Import and mount your controller actions within [backend/src/presentation/routes.ts](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/backend/src/presentation/routes.ts).
+5. **Consume the Endpoint in React**: Trigger the backend endpoint from client views using your custom React query Hooks or Zustand store actions.

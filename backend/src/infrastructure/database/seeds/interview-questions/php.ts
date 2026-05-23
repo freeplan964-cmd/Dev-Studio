@@ -1,0 +1,68 @@
+import type { InterviewQuestionSeed } from "./types.js";
+
+const now = Date.now();
+
+export const phpQuestions: InterviewQuestionSeed[] = [
+  {
+    id: "iq_php_1",
+    area: "backend",
+    difficulty: "junior",
+    category: "PHP",
+    question: "What is the difference between echo and print in PHP, and what is var_dump()?",
+    answer: "echo: outputs one or more strings, no return value, slightly faster. print: outputs a string, returns 1 (can be used in expressions). Both are language constructs, not functions. var_dump() outputs structured type/value information for debugging — use it to inspect complex types. In production, replace with structured logging.",
+    tags: ["php", "basics"],
+    createdAt: now,
+  },
+  {
+    id: "iq_php_2",
+    area: "backend",
+    difficulty: "junior",
+    category: "PHP",
+    question: "What is Composer and why is it essential for PHP development?",
+    answer: "Composer is PHP's dependency manager. It downloads and autoloads packages from Packagist based on composer.json. Running 'composer require vendor/package' adds it to composer.json and composer.lock. Always commit composer.lock to guarantee reproducible installs. Use 'composer install' (uses lockfile) in CI/production; 'composer update' only when intentionally upgrading dependencies.",
+    tags: ["php", "composer", "dependency-management"],
+    favorite: true,
+    createdAt: now,
+  },
+  {
+    id: "iq_php_3",
+    area: "backend",
+    difficulty: "mid",
+    category: "PHP",
+    question: "Explain Laravel's service container and service providers.",
+    answer: "The service container is Laravel's IoC container that resolves class dependencies automatically via constructor type-hinting. Service providers (register/boot methods) are the central place to bind interfaces to implementations. AppServiceProvider is the entry point for custom bindings. The container enables swapping implementations (e.g., swapping a real mailer for a fake in tests) without changing consumer code.",
+    tags: ["php", "laravel", "ioc", "service-container"],
+    createdAt: now,
+  },
+  {
+    id: "iq_php_4",
+    area: "backend",
+    difficulty: "mid",
+    category: "PHP",
+    question: "What is Eloquent ORM and how do you prevent N+1 query problems?",
+    answer: "Eloquent is Laravel's ActiveRecord ORM — each Model maps to a DB table. N+1 problem: loading 100 users and calling $user->posts on each fires 101 queries. Fix with eager loading: User::with('posts')->get() fires 2 queries (one for users, one for all their posts). Use the Laravel Debugbar or Telescope to detect N+1 issues in development.",
+    tags: ["php", "laravel", "eloquent", "n+1", "databases"],
+    favorite: true,
+    createdAt: now,
+  },
+  {
+    id: "iq_php_5",
+    area: "backend",
+    difficulty: "mid",
+    category: "PHP",
+    question: "How does Laravel handle queues and background jobs?",
+    answer: "Jobs are classes implementing ShouldQueue. Dispatch with dispatch(new SendEmailJob($user)). The queue worker (php artisan queue:work) processes jobs asynchronously. Drivers: sync (immediate, no worker), database, Redis, SQS. Configure connection in .env QUEUE_CONNECTION. Use retries and delays for unreliable operations. Laravel Horizon provides a UI for Redis queue monitoring.",
+    tags: ["php", "laravel", "queues", "jobs"],
+    createdAt: now,
+  },
+  {
+    id: "iq_php_6",
+    area: "backend",
+    difficulty: "senior",
+    category: "PHP",
+    question: "What are PHP 8 attributes and how do they replace docblock annotations?",
+    answer: "PHP 8 Attributes (#[AttributeName]) are native metadata applied to classes, methods, properties, and parameters. They replace the docblock annotation pattern (@Route, @ORM\\Column) used by frameworks like Doctrine and Symfony. Attributes are read via Reflection API at runtime. Unlike docblocks, they are type-safe, validated by the PHP engine, and IDE-friendly without additional parsing.",
+    tags: ["php", "php8", "attributes"],
+    createdAt: now,
+  },
+];

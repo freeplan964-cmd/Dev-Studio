@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+  # Database Service (PostgreSQL)
+  db:
+    image: postgres:16-alpine
+    container_name: dev-studio-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: dev_studio_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dev-studio-network
+
+  # Backend API Service (Express 5)
+  backend:
+    build:
+      context: ./backend
+      target: development
+    container_name: dev-studio-backend
+    restart: always
+    environment:
+      PORT: 5000
+      NODE_ENV: development
+      JWT_SECRET: dev_studio_secret_session_key_987654321
+      DATABASE_URL: postgresql://postgres:postgres_password@db:5432/dev_studio_db
+      # Add your custom keys below if needed:
+      # OPENAI_API_KEY: sk-proj-...
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    networks:
+      - dev-studio-network
+
+  # Frontend Web Client Service (React 19)
+  frontend:
+    build:
+      context: ./frontend
+      target: development
+    container_name: dev-studio-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_PROXY: http://backend:5000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - dev-studio-network
+
+volumes:
+  pgdata:
+
+networks:
+  dev-studio-network:
+    driver: bridge

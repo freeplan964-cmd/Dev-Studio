@@ -1,0 +1,91 @@
+import type { InterviewQuestionSeed } from "./types.js";
+
+const now = Date.now();
+
+export const vueSvelteQuestions: InterviewQuestionSeed[] = [
+  // Vue.js
+  {
+    id: "iq_vue_1",
+    area: "frontend",
+    difficulty: "mid",
+    category: "Vue.js",
+    question: "What is the difference between Vue's Composition API and Options API?",
+    answer: "Options API: organizes code by options (data, methods, computed, watch) — familiar but logic for one feature is scattered. Composition API (Vue 3): organizes code by logical concern using `setup()` and composables (reusable functions). Better TypeScript support, easier to extract/reuse logic. Both work in Vue 3; Composition API is recommended for new projects.",
+    tags: ["vue", "composition-api", "options-api"],
+    favorite: true,
+    createdAt: now,
+  },
+  {
+    id: "iq_vue_2",
+    area: "frontend",
+    difficulty: "mid",
+    category: "Vue.js",
+    question: "How does Vue 3's reactivity system work?",
+    answer: "Vue 3 uses ES Proxy for reactivity. `reactive()` wraps an object in a Proxy that intercepts get/set to track dependencies and trigger updates. `ref()` wraps primitives in an object with a `.value` getter/setter. `computed()` creates lazy, cached derived values. `watch()` and `watchEffect()` run side effects when dependencies change. The tracking is automatic — accessing a reactive value inside a computed/watchEffect registers it as a dependency.",
+    tags: ["vue", "reactivity", "proxy"],
+    createdAt: now,
+  },
+  {
+    id: "iq_vue_3",
+    area: "frontend",
+    difficulty: "junior",
+    category: "Vue.js",
+    question: "What is Pinia and why is it preferred over Vuex?",
+    answer: "Pinia is the official Vue state management library (successor to Vuex). Benefits over Vuex: no mutations (just actions and state), full TypeScript support out of the box, simpler API (no namespaced modules), devtools support, composables-based design. Store: `defineStore('id', { state: () => ({}), getters: {}, actions: {} })`. Lightweight and tree-shakeable.",
+    tags: ["vue", "pinia", "state-management"],
+    createdAt: now,
+  },
+  {
+    id: "iq_vue_4",
+    area: "frontend",
+    difficulty: "junior",
+    category: "Vue.js",
+    question: "What are Vue's key directives and what do they do?",
+    answer: "v-if/v-else/v-else-if: conditionally renders (removes from DOM). v-show: toggles CSS display. v-for: list rendering (always add :key). v-bind (:): dynamically binds attributes/props. v-on (@): attaches event listeners. v-model: two-way data binding. v-slot: scoped slots. Rule: use v-show for frequent toggles (no DOM recreate); v-if for infrequent/conditional rendering.",
+    tags: ["vue", "directives"],
+    createdAt: now,
+  },
+  {
+    id: "iq_vue_5",
+    area: "frontend",
+    difficulty: "mid",
+    category: "Vue.js",
+    question: "What is the difference between computed properties and watchers in Vue?",
+    answer: "Computed: declarative derived values, cached until dependencies change, returns a value, use for derived UI data. Watch: imperative side effects when a value changes, no return value, use when you need to perform async operations or call APIs in response to state change. watchEffect: runs immediately and re-runs when any reactive dependency changes. Prefer computed over watch when possible.",
+    tags: ["vue", "computed", "watch"],
+    createdAt: now,
+  },
+
+  // Svelte
+  {
+    id: "iq_sve_1",
+    area: "frontend",
+    difficulty: "mid",
+    category: "Svelte",
+    question: "How does Svelte fundamentally differ from React and Vue?",
+    answer: "Svelte is a compiler, not a runtime framework. It compiles components to highly optimized vanilla JavaScript at build time — no virtual DOM, no runtime diffing. Updates are surgical direct DOM operations. Results: smaller bundle size, faster runtime performance, no overhead. Tradeoff: smaller ecosystem, no runtime introspection, compilation step required.",
+    tags: ["svelte", "compiler", "performance"],
+    favorite: true,
+    createdAt: now,
+  },
+  {
+    id: "iq_sve_2",
+    area: "frontend",
+    difficulty: "mid",
+    category: "Svelte",
+    question: "What are Svelte stores and how do they enable state sharing?",
+    answer: "Svelte stores are observable objects with a subscribe method. Built-ins: writable(value), readable(value, start), derived(stores, fn). Any store can be used in any component — not just Svelte. The `$` prefix auto-subscribes and unsubscribes: `$count` in a template subscribes automatically. Custom stores wrap writable with additional logic. No provider/context needed for global state.",
+    tags: ["svelte", "stores", "state"],
+    createdAt: now,
+  },
+  {
+    id: "iq_sve_3",
+    area: "frontend",
+    difficulty: "mid",
+    category: "Svelte",
+    question: "What are Svelte 5 Runes?",
+    answer: "Runes (Svelte 5) replace the compiler magic with explicit reactive primitives: `$state()` for reactive state, `$derived()` for computed values, `$effect()` for side effects, `$props()` for component props. More explicit than Svelte 4's implicit reactivity (assigning to a variable = reactive). Better TypeScript support and clearer reactivity semantics. Similar intent to Vue's ref/computed/watchEffect but compiler-powered.",
+    tags: ["svelte", "runes", "svelte5"],
+    createdAt: now,
+  },
+];

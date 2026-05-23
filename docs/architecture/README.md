@@ -1,358 +1,81 @@
-# Architecture Overview
+# 📐 System Architecture
 
-High-level overview of Dev Studio's system design and data flow.
-
-## System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     Browser / Client                         │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  React 19 + TanStack Router + TanStack Query         │   │
-│  │  ┌────────────────────────────────────────────────┐  │   │
-│  │  │  Pages (Routes)                                │  │   │
-│  │  │  - Dashboard, Prompts, Agents, Components...  │  │   │
-│  │  └────────────────────────────────────────────────┘  │   │
-│  │  ┌────────────────────────────────────────────────┐  │   │
-│  │  │  Components (shadcn/ui + Custom)              │  │   │
-│  │  │  - UI components, layouts, forms              │  │   │
-│  │  └────────────────────────────────────────────────┘  │   │
-│  │  ┌────────────────────────────────────────────────┐  │   │
-│  │  │  State Management (Zustand)                   │  │   │
-│  │  │  - Prompts, Agents, Components, Snippets...  │  │   │
-│  │  │  - Persisted to localStorage                  │  │   │
-│  │  └────────────────────────────────────────────────┘  │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                            ↓
-┌─────────────────────────────────────────────────────────────┐
-│                  TanStack Start (SSR)                        │
-│  - Server-side rendering                                    │
-│  - Error handling and normalization                         │
-│  - Middleware pipeline                                      │
-└─────────────────────────────────────────────────────────────┘
-                            ↓
-┌─────────────────────────────────────────────────────────────┐
-│                   Supabase Backend                           │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  Authentication (Supabase Auth)                      │   │
-│  │  - Email/password, OAuth (Google, GitHub, MS)       │   │
-│  │  - JWT tokens, session management                   │   │
-│  └──────────────────────────────────────────────────────┘   │
-│  ┌──────────────────────────────────────────────────────┐   │
-│  │  Database (PostgreSQL)                              │   │
-│  │  - Profiles table (user data)                       │   │
-│  │  - Row Level Security (RLS) policies                │   │
-│  └──────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
-                            ↓
-┌─────────────────────────────────────────────────────────────┐
-│              Cloudflare Workers (Deployment)                │
-│  - Edge computing                                           │
-│  - Global distribution                                      │
-│  - Serverless execution                                     │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Data Flow
-
-### User Authentication
-
-```
-1. User visits app
-   ↓
-2. AuthProvider checks session
-   ↓
-3. If no session → redirect to /auth
-   ↓
-4. User signs in (email/OAuth)
-   ↓
-5. Supabase Auth returns JWT token
-   ↓
-6. Token stored in localStorage
-   ↓
-7. User redirected to dashboard
-   ↓
-8. App loads user data
-```
-
-### Asset Management
-
-```
-1. User creates/edits asset (Prompt, Agent, etc.)
-   ↓
-2. Component dispatches Zustand action
-   ↓
-3. Zustand store updates state
-   ↓
-4. State persisted to localStorage
-   ↓
-5. UI re-renders with new data
-   ↓
-6. (Optional) Sync to Supabase
-```
-
-### Page Navigation
-
-```
-1. User clicks link
-   ↓
-2. TanStack Router matches route
-   ↓
-3. Route component renders
-   ↓
-4. TanStack Query fetches data (if needed)
-   ↓
-5. Component renders with data
-   ↓
-6. User sees page
-```
-
-## Core Modules
-
-### 1. Authentication (`src/hooks/use-auth.tsx`)
-
-Manages user authentication state and session.
-
-**Key Functions:**
-
-- `useAuth()` - Get current user and auth state
-- `signOut()` - Sign out user
-- `AuthProvider` - Wraps app with auth context
-
-**Data:**
-
-```typescript
-{
-  session: Session | null,
-  user: User | null,
-  isReady: boolean
-}
-```
-
-### 2. State Management (`src/lib/store.ts`)
-
-Zustand store for all asset data.
-
-**Stores:**
-
-- Prompts
-- Agents
-- Components
-- Templates
-- Snippets
-- Interview Questions
-
-**Features:**
-
-- Persisted to localStorage
-- Undo/redo support (via versions)
-- Favorites and usage tracking
-- Search and filtering
-
-### 3. Routing (`src/routes/`)
-
-TanStack Router for page navigation.
-
-**Routes:**
-
-- `/` - Dashboard
-- `/prompts` - Prompts library
-- `/agents` - AI Agents
-- `/components` - Components library
-- `/templates` - Project templates
-- `/snippets` - Code snippets
-- `/interview` - Interview prep
-- `/auth` - Login page
-- `/profile` - User profile
-
-### 4. Components (`src/components/`)
-
-React components for UI.
-
-**Categories:**
-
-- **UI Components** - shadcn/ui components
-- **Layout** - AppShell, Sidebar, Header
-- **Forms** - Input, Select, Textarea
-- **Cards** - Asset cards, preview cards
-- **Dialogs** - Modals, confirmations
-
-### 5. Integrations (`src/integrations/`)
-
-External service clients.
-
-**Services:**
-
-- Supabase - Database and auth
-- (Future) OpenAI, Anthropic, etc.
-
-## Technology Stack
-
-### Frontend
-
-- **React 19** - UI framework
-- **TanStack Router** - Client-side routing
-- **TanStack Query** - Data fetching
-- **Zustand** - State management
-- **Tailwind CSS v4** - Styling
-- **shadcn/ui** - Component library
-- **React Hook Form** - Form handling
-- **Zod** - Schema validation
-
-### Backend
-
-- **TanStack Start** - Full-stack framework
-- **Vite** - Build tool
-- **TypeScript** - Type safety
-
-### Services
-
-- **Supabase** - Auth and database
-- **Cloudflare Workers** - Deployment
-
-### Development
-
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **Vite** - Dev server and build
-
-## State Management
-
-### Zustand Store Structure
-
-```typescript
-interface ForgeState {
-  // Data
-  prompts: Prompt[];
-  agents: Agent[];
-  components: ComponentAsset[];
-  templates: Template[];
-  snippets: Snippet[];
-  interviewQuestions: InterviewQuestion[];
-
-  // Actions
-  upsertPrompt(p: Prompt): void;
-  deletePrompt(id: string): void;
-  toggleFavoritePrompt(id: string): void;
-  // ... similar for other assets
-}
-```
-
-### Persistence
-
-- **Storage**: localStorage
-- **Key**: `forgedev-store-v3`
-- **Scope**: Per browser/device
-- **Sync**: Manual (no auto-sync to server)
-
-## Error Handling
-
-### Client-Side
-
-```typescript
-// Try-catch in components
-try {
-  // Operation
-} catch (error) {
-  // Show toast notification
-  toast.error("Operation failed");
-}
-```
-
-### Server-Side
-
-```typescript
-// Error middleware in TanStack Start
-const errorMiddleware = createMiddleware().server(async ({ next }) => {
-  try {
-    return await next();
-  } catch (error) {
-    // Normalize error
-    // Return error page
-  }
-});
-```
-
-## Performance Considerations
-
-### Optimization Strategies
-
-1. **Code Splitting** - Route-based code splitting via Vite
-2. **Lazy Loading** - Components loaded on demand
-3. **Memoization** - React.memo for expensive components
-4. **Query Caching** - TanStack Query caches data
-5. **State Persistence** - localStorage reduces API calls
-
-### Bundle Size
-
-- **Target**: < 200KB gzipped
-- **Monitoring**: Vite bundle analysis
-- **Optimization**: Tree-shaking, minification
-
-## Security
-
-### Authentication
-
-- **JWT tokens** - Supabase Auth
-- **Session persistence** - localStorage
-- **Auto-refresh** - Token refresh on expiry
-- **Logout** - Clear session and localStorage
-
-### Data Protection
-
-- **Row Level Security** - Supabase RLS policies
-- **HTTPS only** - All connections encrypted
-- **CORS** - Restricted to trusted origins
-- **Input validation** - Zod schemas
-
-### Secrets Management
-
-- **API keys** - Never exposed in frontend
-- **Environment variables** - Separate per environment
-- **Rotation** - Regular key rotation
-
-## Scalability
-
-### Current Limitations
-
-- **Data**: All stored in localStorage (browser limit ~5-10MB)
-- **Users**: Single user per browser
-- **Sync**: No real-time sync between devices
-
-### Future Improvements
-
-- **Server-side storage** - Move data to Supabase
-- **Real-time sync** - WebSocket for live updates
-- **Offline support** - Service workers for offline mode
-- **Multi-device sync** - Sync across devices
-
-## Deployment
-
-### Development
-
-```bash
-npm run dev
-# Runs on http://localhost:5000
-```
-
-### Production
-
-```bash
-npm run build
-wrangler deploy
-# Deployed to Cloudflare Workers
-```
-
-See [Deployment Guide](../deployment/README.md) for details.
-
-## Related Documentation
-
-- [Data Models](./DATA_MODELS.md) - Asset types and schemas
-- [State Management](./STATE_MANAGEMENT.md) - Zustand store details
-- [Components Guide](../components/README.md) - UI components
-- [Deployment Guide](../deployment/README.md) - Production deployment
+> [!NOTE]
+> Dev Studio is built around strict separation of concerns, modular dependency flow, and security-first request pipelines. This document details the architectural boundaries between the React frontend and the Clean Architecture backend.
 
 ---
 
-**Last updated**: May 2026
+## 🗺️ System Component Diagram
+
+The interaction model below outlines how requests move from client UI interactions, through middlewares, controllers, and services, down to the database persistence layer.
+
+```mermaid
+graph TD
+    subgraph Frontend [React SPA]
+        UI[React Components] --> Store[Zustand Stores]
+        Store --> API[Fetch / API Connectors]
+    end
+
+    subgraph Backend [Express 5 Server]
+        API --> Routes[presentation/routes.ts]
+        Routes --> Mid[presentation/middleware/auth.ts]
+        Mid --> Control[presentation/controllers/]
+        Control --> Service[application/services/]
+        Service --> Schema[domain/schema/]
+        Service --> DB[infrastructure/database/]
+    end
+
+    DB --> PG[(PostgreSQL)]
+```
+
+---
+
+## 🏗️ Backend Design: Clean Architecture
+
+The backend code inside the `backend/src/` folder is separated into four layers following Clean Architecture principles. Dependencies always point inward:
+
+### 1. 📂 Domain (`backend/src/domain/`)
+- **Entities & Schemas**: Defines database tables using Drizzle ORM (under `domain/schema/`).
+- **Enums & Constants**: Project-wide business enums (e.g., `AgentStatus`, `QuestionArea`).
+- **Interfaces**: Contracts that describe data access operations or external services.
+- *Has zero external dependencies on framework packages.*
+
+### 2. 📂 Application (`backend/src/application/`)
+- **Services**: Classes executing business logic and core features (e.g., computing progress scores, handling AI prompt calls).
+- **Use Cases**: Specific orchestrations of domain structures and interfaces.
+
+### 3. 📂 Infrastructure (`backend/src/infrastructure/`)
+- **Database Connection**: Configures the PostgreSQL connection pool using Drizzle.
+- **Seeds & Migrations**: Handles populating development tables with default data.
+- **External Adapters**: Connectors to third-party services like OpenAI API or Slack webhook clients.
+
+### 4. 📂 Presentation (`backend/src/presentation/`)
+- **Controllers**: Receives HTTP requests, validates arguments, invokes application services, and returns HTTP responses.
+- **Routes**: Directs HTTP endpoints to controllers.
+- **Middleware**: Custom security filters (JWT verification, rate limiters, error catch-all routes).
+
+---
+
+## 🎨 Frontend Design: Single Page Application
+
+The frontend inside the `frontend/` folder operates as a modern client-side React SPA:
+
+- **State Management (Zustand)**: Client-side state is handled in stores (under `frontend/src/lib/store/`). Features like active sessions, prompt favorites, and UI dark/light modes sync with `localStorage` automatically.
+- **Routing (TanStack Router)**: Type-safe client-side routing. Route setups are organized under `frontend/src/routes/` with automated layout wrappers and authorization checks.
+- **Styling (Tailwind CSS v4)**: Atomic utility styling. Custom theme presets and variables are defined in `frontend/src/index.css`.
+- **UI Components**: Uses atomic, accessible shadcn/ui structures with custom styling overlays.
+
+---
+
+## ⚡ Core Architecture Files Reference
+
+Use the table below to locate the foundational files in the codebase:
+
+| Path | Purpose |
+| :--- | :--- |
+| **[backend/src/index.ts](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/backend/src/index.ts)** | The Express server entry point. Configures CORS, security headers, cookie parser, and starts listening. |
+| **[backend/src/presentation/routes.ts](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/backend/src/presentation/routes.ts)** | Core API route registration. Standardizes sub-routes (auth, interview prep, agents, prompts, snippets, templates). |
+| **[backend/src/presentation/middleware/auth.ts](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/backend/src/presentation/middleware/auth.ts)** | Session extraction and signature verification from the signed JWT cookie (`ds_token`). |
+| **[backend/src/domain/schema.ts](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/backend/src/domain/schema.ts)** | Aggregates all tables from modular schema files into a unified export for Drizzle ORM. |
+| **[frontend/src/main.tsx](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/frontend/src/main.tsx)** | Renders the React root element, mounts the TanStack Router provider, and registers TanStack Query client context. |
+| **[frontend/src/lib/store/useAuthStore.ts](file:///c:/Users/Memo/Downloads/Dev%20Studio/Dev-Studio/frontend/src/lib/store/useAuthStore.ts)** | Zustand client store managing active user profile info, loading states, and auth checks. |

@@ -1,10 +1,18 @@
-modules = ["nodejs-20", "web", "bash"]
+modules = ["nodejs-20", "web"]
 [agent]
 expertMode = true
 stack = "BEST_EFFORT_FALLBACK"
+integrations = ["javascript_openai_ai_integrations:2.0.0"]
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+PORT = "3001"
+NODE_ENV = "development"
+JWT_SECRET = "bf75036c5e75badaa228db3a0a00bc3faa5c6c2b462aaff016b163f55885bfc13d6ef1de70e5f38f241741a0c68af891e6bba33205b9f4bd0ff55a27037c06de"
 
 [workflows]
 runButton = "Project"
@@ -18,17 +26,33 @@ author = "agent"
 task = "workflow.run"
 args = "Start application"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Backend API"
+
 [[workflows.workflow]]
 name = "Start application"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "npm run dev"
-waitForPort = 5000
-
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev --prefix frontend"
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Backend API"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev:backend"
+waitForPort = 3001
 
 [[ports]]
 localPort = 5000
@@ -39,6 +63,6 @@ localPort = 5001
 externalPort = 3000
 
 [deployment]
-deploymentTarget = "static"
-build = ["npm", "run", "build"]
-publicDir = "dist"
+deploymentTarget = "autoscale"
+run = ["bash", "-c", "npm run dev:backend & npx serve -s frontend/dist -l 5000"]
+build = ["bash", "-c", "npm install --prefix frontend && npm install --prefix backend && npm run build:frontend"]

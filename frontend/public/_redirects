@@ -1,0 +1,2 @@
+/api/* https://dev-studio-77.vercel.app/api/:splat 200
+/* /index.html 200
