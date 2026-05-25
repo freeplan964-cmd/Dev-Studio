@@ -18,6 +18,13 @@ export const TYPE_LABELS: Record<MaterialType, string> = {
   tool: "Tool",
 };
 
+export const TYPE_COLORS: Record<MaterialType, string> = {
+  book: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+  course: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  docs: "bg-green-500/10 text-green-500 border-green-500/20",
+  tool: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+};
+
 // ── Material Interfaces ────────────────────────────────────────────────────────
 
 export interface Material {
