@@ -9,6 +9,8 @@ import {
   deleteSkillTask,
   type SkillTask,
 } from "@/lib/api/skills";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Props {
   data: SkillAreaData;
@@ -115,7 +117,7 @@ export function TasksSection({ data, triggerAdd }: Props) {
 
       {showForm && (
         <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-3">
-          <input
+          <Input
             autoFocus
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -128,14 +130,14 @@ export function TasksSection({ data, triggerAdd }: Props) {
               }
             }}
             placeholder="Task title…"
-            className="w-full bg-background border border-border/60 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+            className="bg-background border-border/60 rounded-lg px-3 py-2 h-auto focus-visible:ring-2 focus-visible:ring-primary/30 shadow-none"
           />
-          <textarea
+          <Textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Notes (optional)…"
             rows={2}
-            className="w-full bg-background border border-border/60 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none transition-all"
+            className="bg-background border-border/60 rounded-lg px-3 py-2 resize-none focus-visible:ring-2 focus-visible:ring-primary/30 shadow-none"
           />
           <div className="flex gap-2">
             <button

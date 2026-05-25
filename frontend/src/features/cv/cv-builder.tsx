@@ -14,6 +14,8 @@ import { ATSChecker } from "./ats-checker";
 import type { CVProfile, CVFocus } from "@/types/cv";
 import { FOCUS_LABELS } from "@/types/cv";
 import { BUILDER_TABS } from "@/constants";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 type BuilderTab = (typeof BUILDER_TABS)[number]["id"];
 
@@ -31,12 +33,12 @@ export function CVBuilder({ cv, onUpdate, activeTab }: CVBuilderProps) {
     <div className="flex flex-col h-full overflow-hidden">
       {/* Compact CV context bar — title input + focus select */}
       <div className="shrink-0 border-b border-border/60 bg-muted/20 px-4 py-2 flex items-center gap-2">
-        <input
+        <Input
           type="text"
           value={cv.title}
           onChange={(e) => patch("title", e.target.value)}
           placeholder="CV title…"
-          className="flex-1 max-w-[220px] h-7 rounded-md border border-input bg-background/80 px-2.5 text-xs font-medium outline-none focus:ring-1 focus:ring-primary/30 focus:border-primary/40 transition-all placeholder:text-muted-foreground/50"
+          className="flex-1 max-w-[220px] h-7 bg-background/80 px-2.5 text-xs font-medium focus-visible:ring-1 focus-visible:ring-primary/30 placeholder:text-muted-foreground/50 shadow-none"
         />
         <Select value={cv.focus} onValueChange={(v) => patch("focus", v as CVFocus)}>
           <SelectTrigger className="w-32 h-7 text-xs">
@@ -71,12 +73,12 @@ export function CVBuilder({ cv, onUpdate, activeTab }: CVBuilderProps) {
                     <label className="text-xs font-medium text-muted-foreground">
                       Professional Summary
                     </label>
-                    <textarea
+                    <Textarea
                       value={cv.summary}
                       onChange={(e) => patch("summary", e.target.value)}
                       rows={5}
                       placeholder={`Write a concise 2-4 sentence summary that highlights your experience, tech stack, and what you bring to the role.\n\nExample: Senior Frontend Engineer with 5+ years building scalable web applications using React and TypeScript...`}
-                      className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm resize-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                      className="resize-none py-2.5"
                     />
                     <p className="text-[10px] text-muted-foreground">
                       {cv.summary.length} characters · Aim for 300–600 characters for optimal ATS

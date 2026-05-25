@@ -1,5 +1,6 @@
 import { Search, Loader2, RefreshCw, AlertCircle, ExternalLink, MapPin } from "lucide-react";
 import { CATEGORIES, TIME_OPTIONS, SOURCES } from "@/data/jobs/jobs";
+import { Input } from "@/components/ui/input";
 
 interface BrowserControlsProps {
   category: string;
@@ -59,24 +60,24 @@ export function BrowserControls({
       <div className="flex gap-2">
         <div className="relative flex-1">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
-          <input
+          <Input
             type="text"
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && onSearch()}
             placeholder="Job title or skills…"
-            className="w-full pl-8 pr-3 py-2 text-sm rounded-md border border-border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+            className="pl-8 pr-3 py-2 h-auto focus-visible:ring-1 focus-visible:ring-ring shadow-none"
           />
         </div>
         <div className="relative">
           <MapPin className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
-          <input
+          <Input
             type="text"
             value={location}
             onChange={(e) => onLocationChange(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && onSearch()}
             placeholder="Location"
-            className="w-32 pl-7 pr-3 py-2 text-sm rounded-md border border-border bg-background focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-32 pl-7 pr-3 py-2 h-auto focus-visible:ring-1 focus-visible:ring-ring shadow-none"
           />
         </div>
       </div>

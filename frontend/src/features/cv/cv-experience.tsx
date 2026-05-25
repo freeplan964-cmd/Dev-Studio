@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Plus, Trash2, ChevronDown, ChevronUp, GripVertical } from "lucide-react";
 import type { CVExperience } from "@/types/cv";
 import { Input } from "@/features/tools/shared";
+import { Textarea } from "@/components/ui/textarea";
 
 interface CVExperienceProps {
   data: CVExperience[];
@@ -145,12 +146,12 @@ export function CVExperienceSection({ data, onChange }: CVExperienceProps) {
               </div>
 
               <Field label="Description">
-                <textarea
+                <Textarea
                   value={exp.description}
                   onChange={(e) => update(exp.id, { description: e.target.value })}
                   rows={2}
                   placeholder="Brief description of the role..."
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="resize-none"
                 />
               </Field>
 

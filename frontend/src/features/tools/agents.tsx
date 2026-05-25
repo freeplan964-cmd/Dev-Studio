@@ -19,6 +19,8 @@ import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { cn } from "@/lib/utils";
 import { MODELS, PROVIDER_BADGE } from "./models";
 import type { ModelOption } from "./models";
+import { Input as UIInput } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -166,12 +168,12 @@ export function Agents({ selectedId }: { selectedId?: string }) {
 
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-          <input
+          <UIInput
             type="text"
             placeholder="Filter agents…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-muted/40 border border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all"
+            className="bg-muted/40 border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs h-auto focus-visible:ring-1 focus-visible:ring-primary/20 shadow-none"
           />
         </div>
       </div>
@@ -486,7 +488,7 @@ export function Agents({ selectedId }: { selectedId?: string }) {
 
               {/* Input area */}
               <div className="p-3 border-t border-border/60 flex items-end gap-2">
-                <textarea
+                <Textarea
                   rows={2}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -497,7 +499,7 @@ export function Agents({ selectedId }: { selectedId?: string }) {
                       : "Continue the conversation…"
                   }
                   disabled={isRunning}
-                  className="flex-1 resize-none bg-background border border-border/60 rounded-xl px-3 py-2 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all placeholder:text-muted-foreground/60 disabled:opacity-50"
+                  className="flex-1 resize-none bg-background border-border/60 rounded-xl px-3 py-2 text-xs focus-visible:ring-1 focus-visible:ring-primary/20 placeholder:text-muted-foreground/60 disabled:opacity-50 shadow-none"
                 />
                 <div className="flex flex-col gap-1.5 shrink-0">
                   <button

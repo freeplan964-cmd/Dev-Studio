@@ -5,11 +5,9 @@ import { toast } from "sonner";
 import { PageContainer, PageHeader, PageSection, TabNav, SplitLayout } from "@/components/layout";
 import { Briefcase } from "lucide-react";
 import { JobsSidebar } from "@/features/jobs/jobs-sidebar";
-import { JobEditor } from "@/features/jobs/job-editor";
+import { JobEditor, OfferEditor, ServiceEditor } from "@/components/crud/jobs";
 import { OffersSidebar } from "@/features/jobs/offers-sidebar";
-import { OfferEditor } from "@/features/jobs/offer-editor";
 import { ServicesSidebar } from "@/features/jobs/services-sidebar";
-import { ServiceEditor } from "@/features/jobs/service-editor";
 import type { SavedJob, FreelanceOffer, MyService } from "@/types/jobs";
 import {
   getSavedJobs,

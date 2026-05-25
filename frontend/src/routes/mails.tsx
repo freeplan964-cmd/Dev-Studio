@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import { z } from "zod";
 import { useForge, newId } from "@/lib/store";
 import { MailsSidebar } from "@/features/mails/mails-sidebar";
-import { TemplateEditor } from "@/features/mails/template-editor";
+import { TemplateEditor } from "@/components/crud/mails";
 import type { MailTemplate } from "@/types/tools";
 import { MAIL_TABS } from "@/constants";
 import { MailChannel } from "@shared/enums";

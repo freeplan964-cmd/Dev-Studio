@@ -19,6 +19,7 @@ import {
 import { cn } from "@/lib/utils";
 import { MODELS, PROVIDER_BADGE } from "./models";
 import type { ModelOption } from "./models";
+import { Input as UIInput } from "@/components/ui/input";
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -120,12 +121,12 @@ export function Prompts({ selectedId }: { selectedId?: string }) {
 
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-          <input
+          <UIInput
             type="text"
             placeholder="Filter prompts…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full bg-muted/40 border border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all"
+            className="bg-muted/40 border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs h-auto focus-visible:ring-1 focus-visible:ring-primary/20 shadow-none"
           />
         </div>
 

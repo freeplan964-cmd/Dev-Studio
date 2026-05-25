@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { Eye, EyeOff } from "lucide-react";
 import { SocialAuth } from "./social-auth";
 import { useAuth } from "@/hooks/use-auth";
+import { Input } from "@/components/ui/input";
 
 type Tab = "login" | "register";
 type Step = "form" | "verify";
@@ -151,13 +152,13 @@ export function AuthForm() {
           <form onSubmit={handleVerify} className="space-y-3">
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">Verification Code</label>
-              <input
+              <Input
                 type="text"
                 placeholder="6-digit code"
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value)}
                 required
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring text-center font-mono tracking-widest"
+                className="text-center font-mono tracking-widest"
               />
             </div>
 
@@ -230,36 +231,34 @@ export function AuthForm() {
             {tab === "register" && (
               <div className="space-y-1">
                 <label className="text-xs font-medium text-foreground">Name</label>
-                <input
+                <Input
                   type="text"
                   placeholder="Your name"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
             )}
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">Email</label>
-              <input
+              <Input
                 type="email"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <div className="space-y-1">
               <label className="text-xs font-medium text-foreground">Password</label>
               <div className="relative">
-                <input
+                <Input
                   type={showPassword ? "text" : "password"}
                   placeholder={tab === "register" ? "At least 6 characters" : "Your password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 pr-10 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="pr-10"
                 />
                 <button
                   type="button"

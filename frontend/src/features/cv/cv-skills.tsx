@@ -2,6 +2,7 @@ import { useState } from "react";
 import { X, Plus } from "lucide-react";
 import type { CVSkills, CVFocus } from "@/types/cv";
 import { FOCUS_KEYWORDS } from "@/types/cv";
+import { Input } from "@/components/ui/input";
 
 interface CVSkillsProps {
   data: CVSkills;
@@ -76,7 +77,7 @@ export function CVSkillsSection({ data, focus, onChange }: CVSkillsProps) {
             ))}
           </div>
           <div className="flex gap-2">
-            <input
+            <Input
               type="text"
               value={inputs[key]}
               onChange={(e) => setInputs((p) => ({ ...p, [key]: e.target.value }))}
@@ -87,7 +88,7 @@ export function CVSkillsSection({ data, focus, onChange }: CVSkillsProps) {
                 }
               }}
               placeholder={placeholder}
-              className="flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              className="flex-1 py-1.5"
             />
             <button
               onClick={() => addSkill(key)}

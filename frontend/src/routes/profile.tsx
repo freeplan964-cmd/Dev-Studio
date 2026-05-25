@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useForge } from "@/lib/store";
 import { updateProfile } from "@/lib/api/profile";
 import type { UserProfile } from "@/types/common";
+import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({ meta: [{ title: "Profile — Dev Studio" }] }),
@@ -76,12 +77,11 @@ function ProfilePage() {
                 Display name
               </label>
               <p className="text-[10px] text-muted-foreground mb-1">Your public name</p>
-              <input
+              <Input
                 type="text"
                 value={form.displayName ?? ""}
                 onChange={(e) => setForm((p) => ({ ...p, displayName: e.target.value }))}
                 placeholder={user?.name ?? "Enter display name…"}
-                className="w-full px-3 py-2 text-sm rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
 
@@ -89,12 +89,11 @@ function ProfilePage() {
               <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Avatar URL
               </label>
-              <input
+              <Input
                 type="url"
                 value={form.avatarUrl ?? ""}
                 onChange={(e) => setForm((p) => ({ ...p, avatarUrl: e.target.value }))}
                 placeholder="https://example.com/avatar.png"
-                className="w-full px-3 py-2 text-sm rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
 
@@ -102,12 +101,11 @@ function ProfilePage() {
               <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Location
               </label>
-              <input
+              <Input
                 type="text"
                 value={form.location ?? ""}
                 onChange={(e) => setForm((p) => ({ ...p, location: e.target.value }))}
                 placeholder="City, Country"
-                className="w-full px-3 py-2 text-sm rounded-md border border-border bg-background focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
 

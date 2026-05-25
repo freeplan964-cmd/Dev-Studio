@@ -15,6 +15,7 @@ import type { CVProfile, ATSResult } from "@/types/cv";
 import { Button } from "@/components/ui/button";
 import { ScoreRing } from "./components/score-ring";
 import { SectionBar } from "./components/section-bar";
+import { Textarea } from "@/components/ui/textarea";
 
 interface ATSCheckerProps {
   cvProfile: CVProfile;
@@ -159,12 +160,12 @@ export function ATSChecker({ cvProfile }: ATSCheckerProps) {
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        <textarea
+        <Textarea
           value={jobDesc}
           onChange={(e) => setJobDesc(e.target.value)}
           rows={14}
           placeholder={`Paste the full job description here...\n\nExample:\nWe are looking for a Senior Frontend Engineer with 4+ years of experience in React, TypeScript, and modern web technologies...\n\nRequirements:\n• 4+ years React experience\n• TypeScript proficiency\n• REST API integration\n...`}
-          className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm resize-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring scrollbar-thin"
+          className="resize-none py-2.5 scrollbar-thin"
         />
 
         <Button

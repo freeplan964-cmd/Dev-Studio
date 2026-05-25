@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Plus, Trash2, ChevronDown, ChevronUp, GripVertical } from "lucide-react";
 import type { CVEducation } from "@/types/cv";
 import { Input } from "@/features/tools/shared";
+import { Textarea } from "@/components/ui/textarea";
 
 interface CVEducationProps {
   data: CVEducation[];
@@ -123,12 +124,12 @@ export function CVEducationSection({ data, onChange }: CVEducationProps) {
                 </Field>
               </div>
               <Field label="Notes">
-                <textarea
+                <Textarea
                   value={edu.notes || ""}
                   onChange={(e) => update(edu.id, { notes: e.target.value })}
                   rows={2}
                   placeholder="Relevant coursework, honors, activities..."
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="resize-none"
                 />
               </Field>
             </div>

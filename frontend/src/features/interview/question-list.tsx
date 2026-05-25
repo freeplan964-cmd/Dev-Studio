@@ -8,6 +8,7 @@ import { QAEditorDialog } from "./qa-editor-dialog";
 import type { FocusArea } from "@/types/common";
 import type { InterviewQuestion } from "@/types/skills";
 import { DIFFICULTIES, DOMAINS } from "@/data/tech/interview";
+import { Input } from "@/components/ui/input";
 
 export function QuestionList() {
   const { interviewQuestions, deleteInterviewQuestion, toggleFavoriteInterviewQuestion } =
@@ -54,11 +55,11 @@ export function QuestionList() {
 
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-          <input
+          <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search questions…"
-            className="w-full bg-muted/40 border border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all"
+            className="bg-muted/40 border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs h-auto focus-visible:ring-1 focus-visible:ring-primary/20 shadow-none"
           />
         </div>
 

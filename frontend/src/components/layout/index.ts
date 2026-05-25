@@ -6,3 +6,4 @@ export * from "./page-container";
 export * from "./tab-nav";
 export * from "./split-layout";
 export { PresenceIndicator } from "./presence-indicator";
+export * from "./inner-sidebar";

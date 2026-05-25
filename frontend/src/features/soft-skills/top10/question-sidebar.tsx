@@ -1,7 +1,8 @@
 import { Trophy, Plus, X, Search, Check, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Question, type InterviewQuestion } from "@/types/skills";
-import { AddQuestionForm } from "./add-question-form";
+import { AddQuestionForm } from "@/components/crud/soft-skills";
+import { Input } from "@/components/ui/input";
 
 interface QuestionSidebarProps {
   filtered: Question[];
@@ -56,12 +57,12 @@ export function QuestionSidebar({
 
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-          <input
+          <Input
             type="text"
             placeholder="Filter questions…"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full bg-muted/40 border border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all"
+            className="bg-muted/40 border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs h-auto focus-visible:ring-1 focus-visible:ring-primary/20 shadow-none"
           />
         </div>
       </div>

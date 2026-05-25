@@ -3,12 +3,13 @@ import { Search, BookOpen, ExternalLink, type LucideIcon } from "lucide-react";
 import { SplitLayout } from "@/components/layout";
 import { cn } from "@/lib/utils";
 import {
-  MATERIAL_FILTERS,
+  MATERIAL_TYPE_OPTIONS,
   TYPE_LABELS,
   type MaterialType,
   type Material,
 } from "@/data/materials";
 import { MATERIAL_AREA_GROUPS, MATERIAL_TYPE_COLORS } from "@/constants";
+import { Input } from "@/components/ui/input";
 
 export function MaterialsView() {
   const [activeArea, setActiveArea] = useState("frontend");
@@ -50,12 +51,12 @@ export function MaterialsView() {
         </div>
         <div className="relative">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-          <input
+          <Input
             type="text"
             placeholder="Search resources…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-muted/40 border border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all"
+            className="bg-muted/40 border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs h-auto focus-visible:ring-1 focus-visible:ring-primary/20 shadow-none"
           />
         </div>
       </div>
@@ -118,7 +119,7 @@ export function MaterialsView() {
               </span>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
-              {MATERIAL_FILTERS.map((f) => (
+              {MATERIAL_TYPE_OPTIONS.map((f) => (
                 <button
                   key={f.id}
                   onClick={() => setFilter(f.id as MaterialType | "all")}

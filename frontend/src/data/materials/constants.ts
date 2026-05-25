@@ -18,6 +18,13 @@ export const TYPE_LABELS: Record<MaterialType, string> = {
   tool: "Tool",
 };
 
+export const TYPE_COLORS: Record<MaterialType, string> = {
+  book: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+  course: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+  docs: "bg-green-500/10 text-green-500 border-green-500/20",
+  tool: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+};
+
 // ── Material Interfaces ────────────────────────────────────────────────────────
 
 export interface Material {
@@ -74,9 +81,9 @@ export const MATERIAL_AREA_LABELS: Record<MaterialAreaId, string> = {
   algorithms: "Algorithms & DSA",
 };
 
-// ── Filters ────────────────────────────────────────────────────────────────────
+// ── Type Filter Options (for UI dropdowns) ─────────────────────────────────────
 
-export const MATERIAL_FILTERS: { id: MaterialType | "all"; label: string }[] = [
+export const MATERIAL_TYPE_OPTIONS: { id: MaterialType | "all"; label: string }[] = [
   { id: "all", label: "All" },
   { id: "book", label: "Books" },
   { id: "course", label: "Courses" },

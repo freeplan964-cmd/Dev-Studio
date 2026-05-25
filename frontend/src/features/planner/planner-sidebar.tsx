@@ -9,6 +9,7 @@ import type { StatusFilter } from "@/types/planner";
 import { WeekCalendar } from "./components/week-calendar";
 import { WeekThemeCard } from "./components/week-theme-card";
 import { WeekAchievements } from "./components/week-achievements";
+import { Input } from "@/components/ui/input";
 
 interface PlannerSidebarProps {
   selectedDate: string;
@@ -60,12 +61,12 @@ export function PlannerSidebar({
         <div className="px-2.5 pt-3 pb-1 space-y-2">
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground pointer-events-none" />
-            <input
+            <Input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search tasks…"
-              className="w-full h-8 pl-8 pr-7 text-xs rounded-xl bg-background border border-border/50 focus:outline-none focus:ring-1 focus:ring-primary/40 placeholder:text-muted-foreground/50"
+              className="h-8 pl-8 pr-7 text-xs rounded-xl bg-background border-border/50 focus-visible:ring-1 focus-visible:ring-primary/40 placeholder:text-muted-foreground/50 shadow-none"
             />
             {searchQuery && (
               <button

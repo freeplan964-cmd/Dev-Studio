@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { TrendingUp, Pencil, Check } from "lucide-react";
 import { STORAGE_KEYS } from "@/types/system";
+import { Textarea } from "@/components/ui/textarea";
 
 const ACHV_KEY = STORAGE_KEYS.WEEK_ACHIEVEMENTS;
 
@@ -54,14 +55,14 @@ export function WeekAchievements({ weekKey }: WeekAchievementsProps) {
           </button>
         </div>
         {editingAchv ? (
-          <textarea
+          <Textarea
             ref={achvRef}
             value={achvText}
             onChange={(e) => handleAchvChange(e.target.value)}
             onBlur={() => setEditingAchv(false)}
             placeholder={`e.g. DevOps 3d, Security 2d, AI 1d…`}
             rows={3}
-            className="w-full px-3 py-2 text-[11px] bg-transparent resize-none focus:outline-none placeholder:text-muted-foreground/40 text-foreground"
+            className="px-3 py-2 text-[11px] bg-transparent resize-none focus:outline-none placeholder:text-muted-foreground/40 text-foreground border-0 shadow-none focus-visible:ring-0 rounded-none"
           />
         ) : (
           <div onClick={() => setEditingAchv(true)} className="px-3 py-2 min-h-[52px] cursor-text">

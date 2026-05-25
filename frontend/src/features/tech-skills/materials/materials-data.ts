@@ -11,5 +11,5 @@ export type { MaterialType, Material, Area, AreaGroup } from "@/data/materials";
 export {
   TYPE_LABELS,
   TYPE_COLORS,
-  MATERIAL_FILTERS as FILTERS,
+  MATERIAL_TYPE_OPTIONS as FILTERS,
 } from "@/data/materials";

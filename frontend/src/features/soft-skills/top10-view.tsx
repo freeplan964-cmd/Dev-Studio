@@ -6,6 +6,7 @@ import { useForge, newId } from "@/lib/store";
 import { useMemo } from "react";
 import { type Scenario, type Question, type InterviewQuestion } from "@/types/skills";
 import { QuestionSidebar, GuideSection, ScenariosSection } from "./top10";
+import { Input } from "@/components/ui/input";
 
 /* ─── Main View ──────────────────────────────────────────────── */
 
@@ -323,7 +324,7 @@ export function Top10QuestionsView() {
                 <div className="flex-1 min-w-0">
                   {editingTitle ? (
                     <div className="flex items-center gap-2">
-                      <input
+                      <Input
                         ref={titleRef}
                         value={titleDraft}
                         onChange={(e) => setTitleDraft(e.target.value)}
@@ -331,7 +332,7 @@ export function Top10QuestionsView() {
                           if (e.key === "Enter") saveTitle();
                           if (e.key === "Escape") setEditingTitle(false);
                         }}
-                        className="flex-1 bg-muted/40 border border-primary/40 rounded-xl px-3 py-1.5 text-sm font-semibold outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                        className="flex-1 bg-muted/40 border-primary/40 rounded-xl px-3 py-1.5 h-auto text-sm font-semibold focus-visible:ring-1 focus-visible:ring-primary/30 shadow-none"
                       />
                       <button
                         onClick={saveTitle}

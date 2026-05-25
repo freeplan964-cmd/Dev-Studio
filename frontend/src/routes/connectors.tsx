@@ -5,7 +5,7 @@ import { Users } from "lucide-react";
 import { z } from "zod";
 import { useForge, newId } from "@/lib/store";
 import { ConnectorsSidebar } from "@/features/connectors/connectors-sidebar";
-import { ConnectorEditor } from "@/features/connectors/connector-editor";
+import { ConnectorEditor } from "@/components/crud/connectors";
 import type { Connector } from "@/types/tools";
 import { CONNECTORS_TABS } from "@/constants";
 import { ConnectorType } from "@shared/enums";

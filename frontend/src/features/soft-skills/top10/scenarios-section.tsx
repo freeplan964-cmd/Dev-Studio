@@ -1,6 +1,6 @@
 import { Layers, Plus, Sparkles, AlertCircle, Trash2, Star } from "lucide-react";
 import { type Scenario } from "@/types/skills";
-import { ScenarioForm } from "./scenario-form";
+import { ScenarioForm } from "@/components/crud/soft-skills";
 import { ScenarioCard } from "./scenario-card";
 
 interface ScenariosSectionProps {

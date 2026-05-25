@@ -16,6 +16,7 @@ import { ResourcesSection } from "./resources-section";
 import { ServicesSection } from "./services-section";
 import { SplitLayout, TabNav } from "../../components/layout";
 import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 
 type SectionId = "overview" | "interview" | "resources" | "services";
 
@@ -189,7 +190,7 @@ export function SkillArea({
         {data.subAreas && (
           <div className="relative">
             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 size-3 text-muted-foreground" />
-            <input
+            <Input
               type="text"
               placeholder={
                 data.id === "softskills"
@@ -200,7 +201,7 @@ export function SkillArea({
               }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-muted/40 border border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs outline-none focus:ring-1 focus:ring-primary/20 focus:border-primary/40 transition-all"
+              className="bg-muted/40 border-border/60 rounded-xl py-1.5 pl-8 pr-3 text-xs h-auto focus-visible:ring-1 focus-visible:ring-primary/20 shadow-none"
             />
           </div>
         )}

@@ -17,6 +17,7 @@ import {
 import { apiFetch } from "@/lib/api/base";
 import { SplitLayout } from "@/components/layout";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Message {
   id: string;
@@ -451,7 +452,7 @@ export function MockChatView({ context }: { context: "tech" | "soft" }) {
         {sessionStarted && (
           <div className="px-4 pb-4 pt-2 shrink-0 border-t border-border/60">
             <div className="flex items-end gap-2 bg-card border border-border rounded-xl p-2 focus-within:ring-1 focus-within:ring-primary/30 focus-within:border-primary/40 transition-all">
-              <textarea
+              <Textarea
                 ref={textareaRef}
                 value={input}
                 onChange={handleTextareaChange}
@@ -459,7 +460,7 @@ export function MockChatView({ context }: { context: "tech" | "soft" }) {
                 placeholder="Type your answer… (Enter to send, Shift+Enter for new line)"
                 rows={1}
                 disabled={isLoading}
-                className="flex-1 bg-transparent resize-none outline-none text-sm placeholder:text-muted-foreground/50 max-h-[140px] py-1 px-1 disabled:opacity-50"
+                className="flex-1 bg-transparent resize-none border-0 shadow-none focus-visible:ring-0 text-sm placeholder:text-muted-foreground/50 max-h-[140px] py-1 px-1 disabled:opacity-50"
               />
               <button
                 onClick={sendMessage}

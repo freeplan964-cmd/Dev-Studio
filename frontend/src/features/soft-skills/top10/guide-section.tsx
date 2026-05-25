@@ -1,4 +1,5 @@
 import { Lightbulb, Edit3, ChevronUp, ChevronDown, Check, X } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 
 interface GuideSectionProps {
   guide: string;
@@ -61,12 +62,12 @@ export function GuideSection({
         <div className="px-4 pb-4">
           {editingGuide ? (
             <div className="space-y-2">
-              <textarea
+              <Textarea
                 autoFocus
                 rows={5}
                 value={guideDraft}
                 onChange={(e) => onDraftChange(e.target.value)}
-                className="w-full bg-background border border-border/60 rounded-xl px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-primary/30 focus:border-primary/40 resize-none transition-all"
+                className="bg-background border-border/60 rounded-xl text-sm focus:ring-1 focus:ring-primary/30 focus:border-primary/40 resize-none shadow-none"
               />
               <div className="flex items-center justify-end gap-2">
                 <button

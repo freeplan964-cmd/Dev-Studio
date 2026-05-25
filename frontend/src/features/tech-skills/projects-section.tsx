@@ -8,6 +8,8 @@ import {
   deleteSkillProject,
   type SkillProject,
 } from "@/lib/api/skills";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const EMPTY_FORM = () => ({ title: "", desc: "", url: "", tags: "" });
 
@@ -121,32 +123,32 @@ export function ProjectsSection({ data, triggerAdd }: Props) {
           <p className="text-sm font-semibold text-foreground">
             {editingId ? "Edit Project" : "New Project"}
           </p>
-          <input
+          <Input
             autoFocus
             value={form.title}
             onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
             onKeyDown={(e) => e.key === "Escape" && cancel()}
             placeholder="Project title…"
-            className="w-full bg-background border border-border/60 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+            className="bg-background border-border/60 rounded-lg px-3 py-2 h-auto focus-visible:ring-2 focus-visible:ring-primary/30 shadow-none"
           />
-          <textarea
+          <Textarea
             value={form.desc}
             onChange={(e) => setForm((f) => ({ ...f, desc: e.target.value }))}
             placeholder="Description — what this project demonstrates or achieves…"
             rows={3}
-            className="w-full bg-background border border-border/60 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 resize-none transition-all"
+            className="bg-background border-border/60 rounded-lg px-3 py-2 resize-none focus-visible:ring-2 focus-visible:ring-primary/30 shadow-none"
           />
-          <input
+          <Input
             value={form.url}
             onChange={(e) => setForm((f) => ({ ...f, url: e.target.value }))}
             placeholder="Link — GitHub, live URL… (optional)"
-            className="w-full bg-background border border-border/60 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+            className="bg-background border-border/60 rounded-lg px-3 py-2 h-auto focus-visible:ring-2 focus-visible:ring-primary/30 shadow-none"
           />
-          <input
+          <Input
             value={form.tags}
             onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
             placeholder="Tags, comma-separated — e.g. React, TypeScript, API"
-            className="w-full bg-background border border-border/60 rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+            className="bg-background border-border/60 rounded-lg px-3 py-2 h-auto focus-visible:ring-2 focus-visible:ring-primary/30 shadow-none"
           />
           <div className="flex gap-2">
             <button

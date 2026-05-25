@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Plus, Trash2, ChevronDown, ChevronUp } from "lucide-react";
 import type { CVProject } from "@/types/cv";
 import { Input } from "@/features/tools/shared";
+import { Textarea } from "@/components/ui/textarea";
 
 interface CVProjectsProps {
   data: CVProject[];
@@ -127,12 +128,12 @@ export function CVProjectsSection({ data, onChange }: CVProjectsProps) {
                 </Field>
               </div>
               <Field label="Description">
-                <textarea
+                <Textarea
                   value={proj.description}
                   onChange={(e) => update(proj.id, { description: e.target.value })}
                   rows={2}
                   placeholder="What does this project do?"
-                  className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm resize-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  className="resize-none"
                 />
               </Field>
               <Field label="Key Highlights">
