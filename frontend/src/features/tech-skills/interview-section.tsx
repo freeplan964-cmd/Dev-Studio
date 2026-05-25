@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { Search, Plus } from "lucide-react";
 import { useForge } from "@/lib/store";
 import { QACard } from "@/features/interview/qa-card";
-import { QAEditorDialog } from "@/features/interview/qa-editor-dialog";
+import { QAEditorDialog } from "@/components/crud/interview";
 import { Input } from "@/features/tools/shared";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { FocusArea } from "@/types/common";

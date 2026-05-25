@@ -5,7 +5,7 @@ import { Share2 } from "lucide-react";
 import { z } from "zod";
 import { useForge, newId } from "@/lib/store";
 import { SocialSidebar } from "@/features/social/social-sidebar";
-import { PostEditor } from "@/features/social/post-editor";
+import { PostEditor } from "@/components/crud/social";
 import type { SocialDraft } from "@/types/tools";
 import { SOCIAL_TABS } from "@/constants";
 import { SocialPlatform } from "@shared/enums";

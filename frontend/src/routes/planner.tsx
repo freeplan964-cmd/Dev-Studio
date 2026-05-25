@@ -31,8 +31,7 @@ import {
 } from "@dnd-kit/sortable";
 import { PlannerSidebar } from "@/features/planner/planner-sidebar";
 import { TaskCard } from "@/features/planner/task-card";
-import { AddTaskForm } from "@/features/planner/add-task-form";
-import { EditTaskDialog } from "@/features/planner/edit-task-dialog";
+import { AddTaskForm, EditTaskDialog } from "@/components/crud/planner";
 import { AISuggestionsPanel } from "@/features/planner/ai-suggestions-panel";
 import { OverviewPanel } from "@/features/planner/overview-panel";
 import { getPlannerTasks, upsertPlannerTask, deletePlannerTask } from "@/lib/api/planner";

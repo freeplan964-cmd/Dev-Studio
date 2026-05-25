@@ -1,7 +1,7 @@
 import { Trophy, Plus, X, Search, Check, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { type Question, type InterviewQuestion } from "@/types/skills";
-import { AddQuestionForm } from "./add-question-form";
+import { AddQuestionForm } from "@/components/crud/soft-skills";
 
 interface QuestionSidebarProps {
   filtered: Question[];
