@@ -5,13 +5,51 @@
  * They are safe to be imported directly by the frontend to ensure strict typing across the stack.
  */
 
+// --- Import from centralized skills constants ---
+
+export {
+  TECH_AREA_IDS,
+  TECH_AREA_LABELS,
+  SOFT_AREA_ID,
+  SOFT_SKILL_AREA_LABEL,
+  SOFT_SKILL_GROUPS,
+  SPECIAL_SUB_AREAS,
+  QUESTION_DIFFICULTIES,
+  QUESTION_AREAS,
+  DEPTH_LABEL_PRESETS,
+  SERVICE_CATEGORIES,
+  TASK_PRIORITIES,
+  TASK_STATUSES,
+  SKILL_ITEM_PRIORITIES,
+} from "./constants/skills.js";
+
+export type {
+  TechAreaId,
+  SoftAreaId,
+  QuestionDifficulty,
+  QuestionArea,
+  ServiceCategory,
+  TaskPriority,
+  TaskStatus,
+  SkillItemPriority,
+} from "./constants/skills.js";
+
+// --- Import from centralized materials constants ---
+
+export {
+  MATERIAL_TYPES,
+  TYPE_LABELS,
+  MATERIAL_AREA_IDS,
+  MATERIAL_AREA_LABELS,
+  MATERIAL_FILTERS,
+} from "./constants/materials.js";
+
+export type {
+  MaterialType,
+  MaterialAreaId,
+} from "./constants/materials.js";
+
 // --- Planner Enums ---
-
-export const TASK_PRIORITIES = ["low", "medium", "high"] as const;
-export type TaskPriority = (typeof TASK_PRIORITIES)[number];
-
-export const TASK_STATUSES = ["todo", "in-progress", "done"] as const;
-export type TaskStatus = (typeof TASK_STATUSES)[number];
 
 export const TASK_CATEGORIES = [
   "activities",
@@ -20,44 +58,6 @@ export const TASK_CATEGORIES = [
   "general",
 ] as const;
 export type TaskCategory = (typeof TASK_CATEGORIES)[number];
-
-// --- Learning / Interview Enums ---
-
-export const QUESTION_DIFFICULTIES = ["junior", "mid", "senior"] as const;
-export type QuestionDifficulty = (typeof QUESTION_DIFFICULTIES)[number];
-
-export const QUESTION_AREAS = [
-  "frontend",
-  "backend",
-  "devops",
-  "testing",
-  "database",
-  "softskills",
-  "general",
-] as const;
-export type QuestionArea = (typeof QUESTION_AREAS)[number];
-
-// --- Tech Skill Area IDs (matches frontend TechAreaId) ---
-
-export const TECH_AREA_IDS = [
-  "frontend",
-  "backend",
-  "devops",
-  "testing",
-  "database",
-  "design-patterns",
-  "architecture",
-  "system-design",
-  "microservices",
-  "security",
-  "performance",
-] as const;
-export type TechAreaId = (typeof TECH_AREA_IDS)[number];
-
-// --- Skill Item Types ---
-
-export const SKILL_ITEM_PRIORITIES = ["low", "medium", "high"] as const;
-export type SkillItemPriority = (typeof SKILL_ITEM_PRIORITIES)[number];
 
 // --- Career & Jobs Enums ---
 

@@ -1,0 +1,68 @@
+import type { Material } from "../../../../domain/constants/materials.js";
+
+export const backendMaterials: (Material & { areaId: string })[] = [
+  {
+    areaId: "backend",
+    title: "Designing Data-Intensive Applications",
+    author: "Martin Kleppmann",
+    url: "https://dataintensive.net",
+    type: "book",
+    desc: "The definitive guide to distributed systems, databases, and data pipelines.",
+  },
+  {
+    areaId: "backend",
+    title: "Clean Architecture",
+    author: "Robert C. Martin",
+    url: "https://www.oreilly.com/library/view/clean-architecture/9780134494272/",
+    type: "book",
+    desc: "SOLID principles, layered architecture, and dependency management.",
+  },
+  {
+    areaId: "backend",
+    title: "Node.js Best Practices",
+    url: "https://github.com/goldbergyoni/nodebestpractices",
+    type: "docs",
+    free: true,
+    desc: "3000-star GitHub collection of production Node.js patterns and security tips.",
+  },
+  {
+    areaId: "backend",
+    title: "roadmap.sh — Backend",
+    url: "https://roadmap.sh/backend",
+    type: "docs",
+    free: true,
+    desc: "Curated visual roadmap for backend engineering.",
+  },
+  {
+    areaId: "backend",
+    title: "System Design Primer",
+    url: "https://github.com/donnemartin/system-design-primer",
+    type: "docs",
+    free: true,
+    desc: "How to design large-scale systems — load balancing, CDN, caching, CAP theorem.",
+  },
+  {
+    areaId: "backend",
+    title: "The Pragmatic Programmer",
+    author: "Hunt & Thomas",
+    url: "https://pragprog.com/titles/tpp20/",
+    type: "book",
+    desc: "Career-defining habits: DRY, tracer bullets, broken windows, and software craftsmanship.",
+  },
+  {
+    areaId: "backend",
+    title: "FastAPI Documentation",
+    url: "https://fastapi.tiangolo.com",
+    type: "docs",
+    free: true,
+    desc: "Modern Python API framework — async, type hints, OpenAPI auto-generation.",
+  },
+  {
+    areaId: "backend",
+    title: "REST API Design Rulebook",
+    author: "Mark Massé",
+    url: "https://www.oreilly.com/library/view/rest-api-design/9781449317904/",
+    type: "book",
+    desc: "Principles for designing consistent, intuitive REST APIs at scale.",
+  },
+];

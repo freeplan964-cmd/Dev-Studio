@@ -10,13 +10,14 @@ import {
   jsonb,
 } from "drizzle-orm/pg-core";
 
-import { QUESTION_DIFFICULTIES, QUESTION_AREAS, SKILL_ITEM_PRIORITIES } from "../enums.js";
+import { QUESTION_DIFFICULTIES, QUESTION_AREAS, SKILL_ITEM_PRIORITIES, MATERIAL_TYPES } from "../enums.js";
 
 export const questionDifficultyEnum = pgEnum(
   "question_difficulty",
   QUESTION_DIFFICULTIES,
 );
 export const questionAreaEnum = pgEnum("question_area", QUESTION_AREAS);
+export const materialTypeEnum = pgEnum("material_type", MATERIAL_TYPES);
 
 export const interviewQuestions = pgTable(
   "interview_questions",
@@ -91,5 +92,24 @@ export const skillProjects = pgTable(
   },
   (t) => [
     index("skill_projects_user_area_idx").on(t.userId, t.areaId),
+  ],
+);
+
+export const materials = pgTable(
+  "materials",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    areaId: text("area_id").notNull(),
+    title: text("title").notNull(),
+    author: text("author"),
+    url: text("url").notNull(),
+    desc: text("desc").notNull(),
+    type: materialTypeEnum("type").notNull(),
+    free: boolean("free").default(false),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [
+    index("materials_area_id_idx").on(t.areaId),
+    index("materials_type_idx").on(t.type),
   ],
 );

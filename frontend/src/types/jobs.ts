@@ -126,21 +126,6 @@ export interface RemoteJob {
   description?: string;
 }
 
-export const STATUS_COLORS: Record<string, string> = {
-  saved: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  applied: "bg-yellow-500/15 text-yellow-400 border-yellow-500/20",
-  interview: "bg-purple-500/15 text-purple-400 border-purple-500/20",
-  offer: "bg-green-500/15 text-green-400 border-green-500/20",
-  rejected: "bg-red-500/15 text-red-400 border-red-500/20",
-  new: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  in_review: "bg-yellow-500/15 text-yellow-400 border-yellow-500/20",
-  accepted: "bg-green-500/15 text-green-400 border-green-500/20",
-  completed: "bg-teal-500/15 text-teal-400 border-teal-500/20",
-  active: "bg-green-500/15 text-green-400 border-green-500/20",
-  paused: "bg-yellow-500/15 text-yellow-400 border-yellow-500/20",
-  draft: "bg-muted text-muted-foreground border-border",
-};
-
 export interface ScrapedJob {
   id: string;
   title: string;
@@ -153,20 +138,3 @@ export interface ScrapedJob {
   salary?: string;
   logo?: string;
 }
-
-export const PLATFORM_COLORS: Record<string, string> = {
-  Fiverr: "bg-emerald-500/15 text-emerald-400",
-  Mostaql: "bg-amber-500/15 text-amber-400",
-  Khamsat: "bg-rose-500/15 text-rose-400",
-  Upwork: "bg-green-500/15 text-green-400",
-  Freelancer: "bg-blue-500/15 text-blue-400",
-  LinkedIn: "bg-sky-500/15 text-sky-400",
-  Indeed: "bg-indigo-500/15 text-indigo-400",
-  RemoteOK: "bg-cyan-500/15 text-cyan-400",
-  Wuzzuf: "bg-teal-500/15 text-teal-400",
-  Bayt: "bg-orange-500/15 text-orange-400",
-  Toptal: "bg-blue-600/15 text-blue-300",
-  PeoplePerHour: "bg-orange-500/15 text-orange-400",
-  Glassdoor: "bg-teal-500/15 text-teal-400",
-  AngelList: "bg-rose-500/15 text-rose-400",
-};

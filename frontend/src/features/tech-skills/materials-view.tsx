@@ -3,23 +3,25 @@ import { Search, BookOpen, ExternalLink, type LucideIcon } from "lucide-react";
 import { SplitLayout } from "@/components/layout";
 import { cn } from "@/lib/utils";
 import {
-  AREA_GROUPS,
-  ALL_AREAS,
-  FILTERS,
+  MATERIAL_FILTERS,
   TYPE_LABELS,
-  TYPE_COLORS,
   type MaterialType,
-} from "./materials/materials-data";
+  type Material,
+} from "@/data/materials";
+import { MATERIAL_AREA_GROUPS, MATERIAL_TYPE_COLORS } from "@/constants";
 
 export function MaterialsView() {
   const [activeArea, setActiveArea] = useState("frontend");
   const [filter, setFilter] = useState<MaterialType | "all">("all");
   const [search, setSearch] = useState("");
 
-  const area = ALL_AREAS.find((a) => a.id === activeArea) ?? ALL_AREAS[0];
+  // Get all areas from groups
+  const allAreas = MATERIAL_AREA_GROUPS.flatMap((g) => g.areas);
+  const area = allAreas.find((a) => a.id === activeArea) ?? allAreas[0];
   const AreaIcon = area.icon as LucideIcon;
 
-  const items = area.materials.filter((m) => {
+  // Filter materials based on search and type
+  const items = (area.materials || []).filter((m: Material) => {
     const matchesFilter = filter === "all" || m.type === filter;
     const matchesSearch =
       !search ||
@@ -59,7 +61,7 @@ export function MaterialsView() {
       </div>
 
       <div className="flex-1 overflow-y-auto p-2 scrollbar-thin space-y-3">
-        {AREA_GROUPS.map((group) => (
+        {MATERIAL_AREA_GROUPS.map((group) => (
           <div key={group.label}>
             <p className="px-3 pt-2 pb-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/60">
               {group.label}
@@ -89,7 +91,7 @@ export function MaterialsView() {
                         isActive ? "text-primary/70" : "text-muted-foreground/50",
                       )}
                     >
-                      {a.materials.length}
+                      {a.materials?.length ?? 0}
                     </span>
                   </button>
                 );
@@ -116,10 +118,10 @@ export function MaterialsView() {
               </span>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
-              {FILTERS.map((f) => (
+              {MATERIAL_FILTERS.map((f) => (
                 <button
                   key={f.id}
-                  onClick={() => setFilter(f.id)}
+                  onClick={() => setFilter(f.id as MaterialType | "all")}
                   className={cn(
                     "px-3 py-1 rounded-xl text-xs font-medium border transition-all",
                     filter === f.id
@@ -137,7 +139,7 @@ export function MaterialsView() {
         <div className="flex-1 overflow-y-auto scrollbar-thin">
           <div className="p-4 sm:p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-              {items.map((m) => (
+              {items.map((m: Material) => (
                 <a
                   key={m.url}
                   href={m.url}
@@ -150,7 +152,7 @@ export function MaterialsView() {
                       <span
                         className={cn(
                           "text-[10px] font-semibold px-2 py-0.5 rounded-md border",
-                          TYPE_COLORS[m.type],
+                          MATERIAL_TYPE_COLORS[m.type],
                         )}
                       >
                         {TYPE_LABELS[m.type]}

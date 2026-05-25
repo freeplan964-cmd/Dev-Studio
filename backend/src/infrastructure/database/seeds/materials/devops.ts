@@ -1,0 +1,68 @@
+import type { Material } from "../../../../domain/constants/materials.js";
+
+export const devopsMaterials: (Material & { areaId: string })[] = [
+  {
+    areaId: "devops",
+    title: "The DevOps Handbook",
+    author: "Kim, Humble, Debois",
+    url: "https://itrevolution.com/product/the-devops-handbook-second-edition/",
+    type: "book",
+    desc: "The definitive guide to DevOps transformation — flow, feedback, and continuous learning.",
+  },
+  {
+    areaId: "devops",
+    title: "Kubernetes Official Docs",
+    url: "https://kubernetes.io/docs/",
+    type: "docs",
+    free: true,
+    desc: "Everything you need to deploy, scale, and manage containerized workloads.",
+  },
+  {
+    areaId: "devops",
+    title: "Docker Getting Started",
+    url: "https://docs.docker.com/get-started/",
+    type: "docs",
+    free: true,
+    desc: "Official Docker learning path — containers, images, Compose, and networking.",
+  },
+  {
+    areaId: "devops",
+    title: "The Phoenix Project",
+    author: "Kim, Behr, Spafford",
+    url: "https://itrevolution.com/product/the-phoenix-project/",
+    type: "book",
+    desc: "A novel about DevOps — how IT and business succeed together through flow and feedback.",
+  },
+  {
+    areaId: "devops",
+    title: "GitHub Actions Docs",
+    url: "https://docs.github.com/en/actions",
+    type: "docs",
+    free: true,
+    desc: "Automate CI/CD pipelines directly in GitHub — workflows, secrets, runners.",
+  },
+  {
+    areaId: "devops",
+    title: "Accelerate",
+    author: "Forsgren, Humble, Kim",
+    url: "https://itrevolution.com/book/accelerate/",
+    type: "book",
+    desc: "Data-driven research on what makes high-performing software delivery teams.",
+  },
+  {
+    areaId: "devops",
+    title: "12-Factor App",
+    url: "https://12factor.net",
+    type: "docs",
+    free: true,
+    desc: "Methodology for building modern, portable, scalable SaaS applications.",
+  },
+  {
+    areaId: "devops",
+    title: "Terraform Docs",
+    url: "https://developer.hashicorp.com/terraform/docs",
+    type: "docs",
+    free: true,
+    desc: "Infrastructure as Code — provision cloud resources declaratively across providers.",
+  },
+];

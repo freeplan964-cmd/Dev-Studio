@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Moon, Sun, CloudSun, Sunset, MoonStar, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
+import { PRAYER_ICONS } from "@/constants/icons";
 import { toDateStr, to24hMin } from "@/lib/utils/planner";
 import type { PrayerTime } from "@/types/planner";
 
@@ -16,18 +17,18 @@ export const PRAYER_META: Record<
     iconColor: string;
   }
 > = {
-  Fajr: { arabic: "الفجر", Icon: Moon, color: "text-indigo-400", iconColor: "text-indigo-400" },
-  Dhuhr: { arabic: "الظهر", Icon: Sun, color: "text-amber-500", iconColor: "text-amber-500" },
-  Asr: { arabic: "العصر", Icon: CloudSun, color: "text-sky-400", iconColor: "text-sky-400" },
+  Fajr: { arabic: "الفجر", Icon: PRAYER_ICONS.Fajr, color: "text-indigo-400", iconColor: "text-indigo-400" },
+  Dhuhr: { arabic: "الظهر", Icon: PRAYER_ICONS.Dhuhr, color: "text-amber-500", iconColor: "text-amber-500" },
+  Asr: { arabic: "العصر", Icon: PRAYER_ICONS.Asr, color: "text-sky-400", iconColor: "text-sky-400" },
   Maghrib: {
     arabic: "المغرب",
-    Icon: Sunset,
+    Icon: PRAYER_ICONS.Maghrib,
     color: "text-orange-500",
     iconColor: "text-orange-500",
   },
   Isha: {
     arabic: "العشاء",
-    Icon: MoonStar,
+    Icon: PRAYER_ICONS.Isha,
     color: "text-violet-400",
     iconColor: "text-violet-400",
   },

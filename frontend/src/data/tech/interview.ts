@@ -1,4 +1,4 @@
-import { Globe, Server, Database, Container, Layout, Cpu } from "lucide-react";
+import { TECH_DOMAIN_ICONS } from "@/constants/icons";
 import type { Difficulty, FocusArea } from "@/types/common";
 
 export const DIFFICULTIES: Difficulty[] = ["junior", "mid", "senior"];
@@ -24,25 +24,10 @@ export const DEPTH_LABEL_PRESETS = [
 ];
 
 export const DOMAINS = [
-  { id: "frontend", label: "Frontend", icon: Globe },
-  { id: "backend", label: "Backend", icon: Server },
-  { id: "database", label: "Database", icon: Database },
-  { id: "devops", label: "DevOps", icon: Container },
-  { id: "architecture", label: "Architecture", icon: Layout },
-  { id: "core", label: "Core CS", icon: Cpu },
-];
-
-export const DIFF_COLORS: Record<string, string> = {
-  junior: "bg-primary/10 text-primary border-primary/20",
-  mid: "bg-primary/10 text-primary border-primary/20",
-  senior: "bg-primary/10 text-primary border-primary/20",
-};
-
-export const DEPTH_COLORS = [
-  "border-primary/30 bg-primary/5 text-primary",
-  "border-primary/40 bg-primary/10 text-primary",
-  "border-primary/50 bg-primary/15 text-primary",
-  "border-primary/60 bg-primary/20 text-primary",
-  "border-primary/70 bg-primary/25 text-primary",
-  "border-primary/80 bg-primary/30 text-primary",
+  { id: "frontend", label: "Frontend", icon: TECH_DOMAIN_ICONS.frontend },
+  { id: "backend", label: "Backend", icon: TECH_DOMAIN_ICONS.backend },
+  { id: "database", label: "Database", icon: TECH_DOMAIN_ICONS.database },
+  { id: "devops", label: "DevOps", icon: TECH_DOMAIN_ICONS.devops },
+  { id: "architecture", label: "Architecture", icon: TECH_DOMAIN_ICONS.architecture },
+  { id: "core", label: "Core CS", icon: TECH_DOMAIN_ICONS.core },
 ];

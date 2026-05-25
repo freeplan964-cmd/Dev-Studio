@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { FreelanceOffer } from "@/types/jobs";
-import { STATUS_COLORS, PLATFORM_COLORS } from "@/types/jobs";
+import { OFFER_STATUS_COLORS, PLATFORM_COLORS } from "@/constants";
 
 interface Props {
   offers: FreelanceOffer[];
@@ -151,7 +151,7 @@ export function OffersSidebar({ offers, activeId, onSelect, onAdd }: Props) {
                     </span>
                   )}
                   <span
-                    className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${STATUS_COLORS[offer.status] ?? ""}`}
+                    className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${OFFER_STATUS_COLORS[offer.status] ?? ""}`}
                   >
                     {statusLabel[offer.status] ?? offer.status}
                   </span>

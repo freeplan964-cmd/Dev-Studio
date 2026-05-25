@@ -1,0 +1,61 @@
+import type { Material } from "../../../../domain/constants/materials.js";
+
+export const testingMaterials: (Material & { areaId: string })[] = [
+  {
+    areaId: "testing",
+    title: "The Art of Unit Testing",
+    author: "Roy Osherove",
+    url: "https://www.artofunittesting.com",
+    type: "book",
+    desc: "Classic guide to writing readable, maintainable unit tests — mocks, stubs, and design for testability.",
+  },
+  {
+    areaId: "testing",
+    title: "Testing Trophy",
+    author: "Kent C. Dodds",
+    url: "https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications",
+    type: "docs",
+    free: true,
+    desc: "The case for integration tests as the foundation of a solid test suite.",
+  },
+  {
+    areaId: "testing",
+    title: "Testing Library Docs",
+    url: "https://testing-library.com/docs/",
+    type: "docs",
+    free: true,
+    desc: "Query by user-visible behavior, not implementation details.",
+  },
+  {
+    areaId: "testing",
+    title: "Playwright Docs",
+    url: "https://playwright.dev/docs/intro",
+    type: "docs",
+    free: true,
+    desc: "Reliable end-to-end browser automation — cross-browser, parallel, auto-wait.",
+  },
+  {
+    areaId: "testing",
+    title: "Google Testing Blog",
+    url: "https://testing.googleblog.com",
+    type: "docs",
+    free: true,
+    desc: "Engineering-level posts on testing strategy, flakiness, and CI at scale.",
+  },
+  {
+    areaId: "testing",
+    title: "Test-Driven Development",
+    author: "Kent Beck",
+    url: "https://www.oreilly.com/library/view/test-driven-development/0321146530/",
+    type: "book",
+    desc: "The original TDD book — Red, Green, Refactor cycle explained by its creator.",
+  },
+  {
+    areaId: "testing",
+    title: "Vitest Docs",
+    url: "https://vitest.dev",
+    type: "docs",
+    free: true,
+    desc: "Blazing-fast Vite-native unit test framework — drop-in Jest replacement.",
+  },
+];

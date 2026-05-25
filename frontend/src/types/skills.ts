@@ -1,118 +1,58 @@
-import { ElementType } from "react";
-import { FocusArea, Difficulty, AnswerDepth } from "./common";
+/**
+ * Skills Types - Backward Compatibility
+ * Re-exports from the new organized skills types structure
+ * 
+ * DEPRECATED: Import directly from @/types/skills/tech-skills or @/types/skills/soft-skills
+ * This file is maintained for backward compatibility only.
+ */
 
-export interface Scenario {
-  id: string;
-  title: string;
-  situation: string;
-  task: string;
-  action: string;
-  result: string;
-  createdAt: number;
-}
+// Re-export all types from the new structure
+export type {
+  TechAreaId,
+  SkillConcept,
+  SkillResource,
+  SkillChecklistItem,
+  ServiceCategory,
+  ServiceSnippet,
+  ServiceIntegration,
+  SkillSubArea,
+  SkillAreaData,
+  SkillTask,
+  SkillProject,
+  SkillAreaProps,
+  TasksSectionProps,
+  ProjectsSectionProps,
+  ResourcesSectionProps,
+  ServicesSectionProps,
+  OverviewSectionProps,
+  InterviewSectionProps,
+  SkillTabsProps,
+  SectionId,
+  SubAreaTab,
+} from "./skills/tech-skills";
 
-export interface Question {
-  id: string;
-  title: string;
-  guide: string;
-  scenarios: Scenario[];
-  isDefault?: boolean;
-}
+export type {
+  SoftAreaId,
+  Scenario,
+  Question,
+  InterviewQuestion,
+  SoftSkillAreaData,
+  SoftSkillGroupItem,
+  SoftSkillGroups,
+  SoftSkillViewProps,
+  SoftSkillTabsProps,
+  Top10ViewProps,
+  QuestionSidebarProps,
+  GuideSectionProps,
+  ScenariosSectionProps,
+  ScenarioFormProps,
+  ScenarioCardProps,
+  AddQuestionFormProps,
+} from "./skills/soft-skills";
 
-export interface InterviewQuestion {
-  id: string;
-  question: string;
-  answer: string;
-  answerDepths?: any[];
-  area: FocusArea;
-  difficulty: Difficulty;
-  tags: string[];
-  category?: string;
-  favorite?: boolean;
-  isGlobal?: boolean;
-  userId?: string;
-  createdAt: number;
-}
+// ── Unified Area ID Type ───────────────────────────────────────────────────────
 
-export type TechAreaId =
-  | "frontend"
-  | "backend"
-  | "devops"
-  | "testing"
-  | "database"
-  | "design-patterns"
-  | "architecture"
-  | "system-design"
-  | "microservices"
-  | "security"
-  | "performance";
+import type { TechAreaId } from "./skills/tech-skills";
+import type { SoftAreaId } from "./skills/soft-skills";
 
-export type SoftAreaId = "softskills";
 export type AreaId = TechAreaId | SoftAreaId;
-
-export interface SkillConcept {
-  title: string;
-  body: string;
-}
-
-export interface SkillResource {
-  label: string;
-  url: string;
-  desc: string;
-}
-
-export interface SkillChecklistItem {
-  id: string;
-  label: string;
-}
-
-export type ServiceCategory =
-  | "auth"
-  | "payment"
-  | "email"
-  | "cache"
-  | "queue"
-  | "storage"
-  | "realtime"
-  | "monitoring"
-  | "search";
-
-export interface ServiceSnippet {
-  lang: string;
-  install: string;
-  code: string;
-}
-
-export interface ServiceIntegration {
-  id: string;
-  name: string;
-  category: ServiceCategory;
-  description: string;
-  docsUrl: string;
-  packageName?: string;
-  badge?: "Popular" | "Official" | "Recommended";
-  snippet?: ServiceSnippet;
-}
-
-export interface SkillAreaData {
-  id: AreaId;
-  label: string;
-  icon: ElementType;
-  description: string;
-  concepts: SkillConcept[];
-  resources: SkillResource[];
-  checklist: SkillChecklistItem[];
-  subAreasLabel?: string;
-  subAreas?: {
-    id: string;
-    label: string;
-    icon?: ElementType;
-    color: string;
-    accent: string;
-    tags: string[];
-    concepts?: SkillConcept[];
-    resources?: SkillResource[];
-    checklist?: SkillChecklistItem[];
-    services?: ServiceIntegration[];
-  }[];
-}

@@ -107,13 +107,6 @@ export const FOCUS_LABELS: Record<CVFocus, string> = {
   general: "General",
 };
 
-export const FOCUS_COLORS: Record<CVFocus, string> = {
-  frontend: "bg-blue-500/15 text-blue-400 border-blue-500/20",
-  backend: "bg-purple-500/15 text-purple-400 border-purple-500/20",
-  fullstack: "bg-teal-500/15 text-teal-400 border-teal-500/20",
-  general: "bg-muted text-muted-foreground border-border",
-};
-
 export const FOCUS_KEYWORDS: Record<CVFocus, string[]> = {
   frontend: [
     "React",

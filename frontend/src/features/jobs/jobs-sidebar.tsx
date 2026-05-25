@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { SavedJob } from "@/types/jobs";
-import { STATUS_COLORS, JOB_STATUSES } from "@/types/jobs";
+import { JOB_STATUS_COLORS } from "@/constants";
 
 interface Props {
   jobs: SavedJob[];
@@ -147,7 +147,7 @@ export function JobsSidebar({ jobs, activeId, onSelect, onAdd }: Props) {
                       )}
                       <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                         <span
-                          className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${STATUS_COLORS[job.status] ?? ""}`}
+                          className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${JOB_STATUS_COLORS[job.status] ?? ""}`}
                         >
                           {statusLabel[job.status] ?? job.status}
                         </span>

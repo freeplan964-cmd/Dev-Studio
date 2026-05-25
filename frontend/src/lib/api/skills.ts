@@ -1,6 +1,16 @@
 import { apiFetch } from "./base";
 import { resolveIcon } from "@/lib/icons";
-import type { SkillAreaData, SkillConcept, SkillResource, SkillChecklistItem, ServiceIntegration, TechAreaId, AreaId } from "@/types/skills";
+import type {
+  SkillAreaData,
+  SkillConcept,
+  SkillResource,
+  SkillChecklistItem,
+  ServiceIntegration,
+  TechAreaId,
+  AreaId,
+  SkillTask,
+  SkillProject,
+} from "@/types/skills";
 
 // ── Raw API shapes ─────────────────────────────────────────────────────────────
 
@@ -73,27 +83,6 @@ export async function getSoftSkillArea(): Promise<SkillAreaData> {
   return convertArea(data.soft);
 }
 
-export interface SkillTask {
-  id: string;
-  areaId: string;
-  title: string;
-  notes: string;
-  done: boolean;
-  createdAt: number;
-  updatedAt: number;
-}
-
-export interface SkillProject {
-  id: string;
-  areaId: string;
-  title: string;
-  desc: string;
-  url: string;
-  tags: string[];
-  createdAt: number;
-  updatedAt: number;
-}
-
 // ── Tasks ─────────────────────────────────────────────────────────────────────
 
 export async function getSkillTasks(areaId: string): Promise<SkillTask[]> {
@@ -153,3 +142,7 @@ export async function upsertSkillProject(data: {
 export async function deleteSkillProject(id: string): Promise<void> {
   await apiFetch<void>(`/api/skills/projects/${id}`, { method: "DELETE" });
 }
+
+// ── Re-exports for backward compatibility ──────────────────────────────────────
+
+export type { SkillTask, SkillProject };

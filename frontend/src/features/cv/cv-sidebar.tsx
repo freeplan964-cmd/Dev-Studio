@@ -2,7 +2,8 @@ import { FileText, Plus, Trash2, Search } from "lucide-react";
 import { useState } from "react";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import type { CVProfile, CVFocus } from "@/types/cv";
-import { FOCUS_COLORS, FOCUS_LABELS } from "@/types/cv";
+import { FOCUS_LABELS } from "@/types/cv";
+import { CV_FOCUS_COLORS } from "@/constants";
 
 interface CVSidebarProps {
   cvProfiles: CVProfile[];
@@ -111,7 +112,7 @@ export function CVSidebar({
                 </div>
                 <div className="flex items-center gap-2 mt-1">
                   <span
-                    className={`inline-flex items-center text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${FOCUS_COLORS[cv.focus]}`}
+                    className={`inline-flex items-center text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${CV_FOCUS_COLORS[cv.focus]}`}
                   >
                     {FOCUS_LABELS[cv.focus]}
                   </span>

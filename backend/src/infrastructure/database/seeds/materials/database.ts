@@ -1,0 +1,68 @@
+import type { Material } from "../../../../domain/constants/materials.js";
+
+export const databaseMaterials: (Material & { areaId: string })[] = [
+  {
+    areaId: "database",
+    title: "Use The Index, Luke",
+    url: "https://use-the-index-luke.com",
+    type: "docs",
+    free: true,
+    desc: "SQL performance explained — how indexes really work, query plans, and tuning.",
+  },
+  {
+    areaId: "database",
+    title: "PostgreSQL Docs",
+    url: "https://www.postgresql.org/docs/",
+    type: "docs",
+    free: true,
+    desc: "Comprehensive Postgres reference — JSONB, CTEs, window functions, replication.",
+  },
+  {
+    areaId: "database",
+    title: "Designing Data-Intensive Applications",
+    author: "Martin Kleppmann",
+    url: "https://dataintensive.net",
+    type: "book",
+    desc: "Replication, partitioning, transactions, and distributed consensus.",
+  },
+  {
+    areaId: "database",
+    title: "Redis University",
+    url: "https://university.redis.com",
+    type: "course",
+    free: true,
+    desc: "Free official Redis courses — data structures, pub/sub, streams, and clustering.",
+  },
+  {
+    areaId: "database",
+    title: "MongoDB University",
+    url: "https://learn.mongodb.com",
+    type: "course",
+    free: true,
+    desc: "Free MongoDB learning paths — aggregation, indexing, Atlas.",
+  },
+  {
+    areaId: "database",
+    title: "Prisma Docs",
+    url: "https://www.prisma.io/docs",
+    type: "docs",
+    free: true,
+    desc: "Modern TypeScript ORM — schema-first, type-safe queries, migrations.",
+  },
+  {
+    areaId: "database",
+    title: "Database Internals",
+    author: "Alex Petrov",
+    url: "https://www.databass.dev",
+    type: "book",
+    desc: "How database engines work — storage, B-trees, LSM trees, distributed systems.",
+  },
+  {
+    areaId: "database",
+    title: "SQL Performance Explained",
+    author: "Markus Winand",
+    url: "https://sql-performance-explained.com",
+    type: "book",
+    desc: "Focused, practical book on writing fast SQL — indexes, execution plans, N+1 avoidance.",
+  },
+];

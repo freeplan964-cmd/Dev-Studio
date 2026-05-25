@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { MyService } from "@/types/jobs";
-import { STATUS_COLORS, PLATFORM_COLORS } from "@/types/jobs";
+import { SERVICE_STATUS_COLORS, PLATFORM_COLORS } from "@/constants";
 
 interface Props {
   services: MyService[];
@@ -147,7 +147,7 @@ export function ServicesSidebar({ services, activeId, onSelect, onAdd }: Props) 
                     </span>
                   )}
                   <span
-                    className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${STATUS_COLORS[svc.status] ?? ""}`}
+                    className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${SERVICE_STATUS_COLORS[svc.status] ?? ""}`}
                   >
                     {statusLabel[svc.status] ?? svc.status}
                   </span>
