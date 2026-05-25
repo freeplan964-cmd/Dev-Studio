@@ -3,6 +3,14 @@ import type { LucideIcon } from "lucide-react";
 
 export type { TaskPriority, TaskStatus, TaskCategory };
 
+export interface PrayerTime {
+  name: string;
+  arabicName: string;
+  time: string;
+  Icon: LucideIcon;
+  iconColor: string;
+}
+
 export interface PlannerTask {
   id: string;
   date: string;

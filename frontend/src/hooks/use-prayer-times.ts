@@ -1,14 +1,9 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Moon, Sun, CloudSun, Sunset, MoonStar, type LucideIcon } from "lucide-react";
 import { toDateStr, to24hMin } from "@/lib/planner-utils";
+import type { PrayerTime } from "@/types/planner";
 
-export interface PrayerTime {
-  name: string;
-  arabicName: string;
-  time: string;
-  Icon: LucideIcon;
-  iconColor: string;
-}
+export type { PrayerTime };
 
 const PRAYER_KEYS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"] as const;
 

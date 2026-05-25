@@ -1,19 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
+import type { AuthUser, UserProfile } from "@/types/common";
 
-export interface AuthUser {
-  id: string;
-  name: string;
-  email?: string | null;
-  profileImage?: string | null;
-  displayName?: string | null;
-  avatarUrl?: string | null;
-}
-
-export interface UserProfile {
-  displayName: string | null;
-  avatarUrl: string | null;
-  location: string | null;
-}
+export type { AuthUser, UserProfile };
 
 interface AuthContextValue {
   user: AuthUser | null;

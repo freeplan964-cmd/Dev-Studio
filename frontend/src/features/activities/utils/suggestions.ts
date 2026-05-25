@@ -16,7 +16,7 @@ import {
   FileCode2,
   type LucideIcon,
 } from "lucide-react";
-import type { PrayerTime } from "@/hooks/use-prayer-times";
+import type { PrayerTime } from "@/types/planner";
 import type { ActivitySuggestion } from "@/data/planner/activities";
 import { to24hMin, formatMinutesLabel } from "@/lib/planner-utils";
 

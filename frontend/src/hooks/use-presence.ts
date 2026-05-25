@@ -9,11 +9,9 @@
  */
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import type { UsePresenceResult } from "@/types/common";
 
-export interface UsePresenceResult {
-  online: string[];
-  connected: boolean;
-}
+export type { UsePresenceResult };
 
 const HEARTBEAT_INTERVAL_MS = 30_000;
 const RECONNECT_DELAY_MS = 3_000;
