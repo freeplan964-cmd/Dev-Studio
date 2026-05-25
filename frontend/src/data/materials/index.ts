@@ -9,7 +9,7 @@ export {
   TYPE_COLORS,
   MATERIAL_AREA_IDS,
   MATERIAL_AREA_LABELS,
-  MATERIAL_FILTERS,
+  MATERIAL_TYPE_OPTIONS,
 
   isMaterialArea,
 } from "./constants";

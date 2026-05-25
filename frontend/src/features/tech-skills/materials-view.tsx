@@ -3,7 +3,7 @@ import { Search, BookOpen, ExternalLink, type LucideIcon } from "lucide-react";
 import { SplitLayout } from "@/components/layout";
 import { cn } from "@/lib/utils";
 import {
-  MATERIAL_FILTERS,
+  MATERIAL_TYPE_OPTIONS,
   TYPE_LABELS,
   type MaterialType,
   type Material,
@@ -118,7 +118,7 @@ export function MaterialsView() {
               </span>
             </div>
             <div className="flex items-center gap-1.5 flex-wrap">
-              {MATERIAL_FILTERS.map((f) => (
+              {MATERIAL_TYPE_OPTIONS.map((f) => (
                 <button
                   key={f.id}
                   onClick={() => setFilter(f.id as MaterialType | "all")}

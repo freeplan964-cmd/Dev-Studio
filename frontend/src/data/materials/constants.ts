@@ -81,9 +81,9 @@ export const MATERIAL_AREA_LABELS: Record<MaterialAreaId, string> = {
   algorithms: "Algorithms & DSA",
 };
 
-// ── Filters ────────────────────────────────────────────────────────────────────
+// ── Type Filter Options (for UI dropdowns) ─────────────────────────────────────
 
-export const MATERIAL_FILTERS: { id: MaterialType | "all"; label: string }[] = [
+export const MATERIAL_TYPE_OPTIONS: { id: MaterialType | "all"; label: string }[] = [
   { id: "all", label: "All" },
   { id: "book", label: "Books" },
   { id: "course", label: "Courses" },

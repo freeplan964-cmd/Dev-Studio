@@ -92,8 +92,16 @@ export {
   SOCIAL_PLATFORM_FILTERS,
   MAIL_CHANNEL_FILTERS,
   CONNECTOR_TYPE_FILTERS,
+  CONNECTOR_CONTACT_FILTERS,
+  MAIL_LIST_FILTERS,
+  SOCIAL_DATE_FILTERS,
+  JOB_SIDEBAR_FILTERS,
   getFilterOptions,
 } from "./filters";
+
+// ── Labels ────────────────────────────────────────────────────────────────────
+
+export * from "./labels";
 
 // ── UI Components (Legacy - kept for backward compatibility) ────────────────────
 
@@ -165,6 +173,10 @@ export { DIFFICULTIES, FOCUS_AREAS } from "../data/tech/interview";
 export * from "../data/jobs/jobs";
 export * from "../data/planner/planner";
 export * from "../data/planner/activities";
+
+// ── Job & Freelance Categories ─────────────────────────────────────────────────
+
+export { JOB_CATEGORIES, OFFER_CATEGORIES, FREELANCE_SERVICE_CATEGORIES } from "../types/jobs";
 
 // ── System & Types ────────────────────────────────────────────────────────────
 

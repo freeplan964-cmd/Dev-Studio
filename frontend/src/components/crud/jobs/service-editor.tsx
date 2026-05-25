@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Loader2, Trash2, ExternalLink, Star } from "lucide-react";
 import type { MyService, ServiceStatus } from "@/types/jobs";
 import { SERVICE_STATUSES, SERVICE_PLATFORMS } from "@/types/jobs";
+import { FREELANCE_SERVICE_CATEGORIES } from "@/constants";
 import { toast } from "sonner";
 
 interface Props {
@@ -24,21 +25,6 @@ const EMPTY: Partial<MyService> = {
   tags: [],
   notes: "",
 };
-
-const SERVICE_CATEGORIES = [
-  "Web Development",
-  "Mobile Development",
-  "UI/UX Design",
-  "Graphic Design",
-  "Copywriting",
-  "SEO",
-  "Digital Marketing",
-  "Video Editing",
-  "Data Entry",
-  "Translation",
-  "Consulting",
-  "Other",
-];
 
 export function ServiceEditor({ service, isNew, onSave, onDelete }: Props) {
   const [form, setForm] = useState<Partial<MyService>>(EMPTY);
@@ -153,7 +139,7 @@ export function ServiceEditor({ service, isNew, onSave, onDelete }: Props) {
                 onChange={(e) => setForm((p) => ({ ...p, category: e.target.value }))}
               >
                 <option value="">Select category</option>
-                {SERVICE_CATEGORIES.map((c) => (
+                {FREELANCE_SERVICE_CATEGORIES.map((c) => (
                   <option key={c} value={c}>
                     {c}
                   </option>

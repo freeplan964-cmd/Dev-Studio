@@ -60,6 +60,21 @@ export const OFFER_CATEGORIES = [
   "Other",
 ] as const;
 
+export const FREELANCE_SERVICE_CATEGORIES = [
+  "Web Development",
+  "Mobile Development",
+  "UI/UX Design",
+  "Graphic Design",
+  "Copywriting",
+  "SEO",
+  "Digital Marketing",
+  "Video Editing",
+  "Data Entry",
+  "Translation",
+  "Consulting",
+  "Other",
+];
+
 export interface SavedJob {
   id: string;
   title: string;

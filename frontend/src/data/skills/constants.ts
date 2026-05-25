@@ -142,23 +142,6 @@ export const DOMAINS: DomainConfig[] = [
   { id: "core", label: "Core CS", icon: Terminal },
 ];
 
-// ── Color Schemes ──────────────────────────────────────────────────────────────
-
-export const DIFFICULTY_COLORS: Record<QuestionDifficulty, string> = {
-  junior: "bg-primary/10 text-primary border-primary/20",
-  mid: "bg-primary/10 text-primary border-primary/20",
-  senior: "bg-primary/10 text-primary border-primary/20",
-};
-
-export const DEPTH_COLORS = [
-  "border-primary/30 bg-primary/5 text-primary",
-  "border-primary/40 bg-primary/10 text-primary",
-  "border-primary/50 bg-primary/15 text-primary",
-  "border-primary/60 bg-primary/20 text-primary",
-  "border-primary/70 bg-primary/25 text-primary",
-  "border-primary/80 bg-primary/30 text-primary",
-] as const;
-
 // ── Service Categories ─────────────────────────────────────────────────────────
 
 export const SERVICE_CATEGORIES = [

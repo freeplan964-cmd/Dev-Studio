@@ -4,6 +4,7 @@ import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { Connector } from "@/types/tools";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { CONNECTOR_CONTACT_FILTERS } from "@/constants";
 import {
   InnerSidebar,
   InnerSidebarHeader,
@@ -30,12 +31,6 @@ const TypeIcon = ({ type }: { type: string }) => {
   if (type === "hr") return <Briefcase className="size-3.5" />;
   return <Users className="size-3.5" />;
 };
-
-const FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Has Email", value: "email" },
-  { label: "Has Phone", value: "phone" },
-];
 
 export function ConnectorsSidebar({
   type,
@@ -78,7 +73,7 @@ export function ConnectorsSidebar({
         onChange={setSearchQuery}
         placeholder="Search contacts…"
       />
-      <InnerSidebarFilters filters={FILTERS} active={activeFilter} onChange={setActiveFilter} />
+      <InnerSidebarFilters filters={CONNECTOR_CONTACT_FILTERS} active={activeFilter} onChange={setActiveFilter} />
       <InnerSidebarDivider />
       <InnerSidebarList>
         {filtered.length > 0 ? (

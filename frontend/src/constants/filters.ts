@@ -111,6 +111,32 @@ export const MAIL_CHANNEL_FILTERS = ["cover-letter", "gmail", "whatsapp"] as con
 
 export const CONNECTOR_TYPE_FILTERS = ["companies", "hr", "clients"] as const;
 
+// ── Sidebar List Filter Options ────────────────────────────────────────────────
+
+export const CONNECTOR_CONTACT_FILTERS = [
+  { label: "All", value: "all" },
+  { label: "Has Email", value: "email" },
+  { label: "Has Phone", value: "phone" },
+];
+
+export const MAIL_LIST_FILTERS = [
+  { label: "All", value: "all" },
+  { label: "Recent", value: "recent" },
+  { label: "A–Z", value: "az" },
+];
+
+export const SOCIAL_DATE_FILTERS = [
+  { label: "All", value: "all" },
+  { label: "Recent", value: "recent" },
+  { label: "Older", value: "older" },
+];
+
+export const JOB_SIDEBAR_FILTERS = [
+  { label: "All", value: "all" },
+  { label: "Applied", value: "applied" },
+  { label: "Interview", value: "interview" },
+];
+
 // ── Utility: Get filter options ────────────────────────────────────────────────
 
 export function getFilterOptions(

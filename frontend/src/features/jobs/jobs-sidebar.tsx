@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { SavedJob } from "@/types/jobs";
-import { JOB_STATUS_COLORS } from "@/constants";
+import { JOB_STATUS_COLORS, JOB_STATUS_LABELS, JOB_SIDEBAR_FILTERS } from "@/constants";
 import { JOB_STATUSES } from "@/types/jobs";
 import {
   InnerSidebar,
@@ -20,20 +20,6 @@ interface Props {
   onSelect: (id: string) => void;
   onAdd: () => void;
 }
-
-const statusLabel: Record<string, string> = {
-  saved: "Saved",
-  applied: "Applied",
-  interview: "Interview",
-  offer: "Offer",
-  rejected: "Rejected",
-};
-
-const FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Applied", value: "applied" },
-  { label: "Interview", value: "interview" },
-];
 
 export function JobsSidebar({ jobs, activeId, onSelect, onAdd }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -71,7 +57,7 @@ export function JobsSidebar({ jobs, activeId, onSelect, onAdd }: Props) {
         onChange={setSearchQuery}
         placeholder="Search jobs…"
       />
-      <InnerSidebarFilters filters={FILTERS} active={activeFilter} onChange={setActiveFilter} />
+      <InnerSidebarFilters filters={JOB_SIDEBAR_FILTERS} active={activeFilter} onChange={setActiveFilter} />
       <InnerSidebarDivider />
       <div className="overflow-y-auto p-2 space-y-3 flex-1">
         {filtered.length === 0 && (
@@ -93,7 +79,7 @@ export function JobsSidebar({ jobs, activeId, onSelect, onAdd }: Props) {
           return (
             <div key={status}>
               <p className="px-2 mb-1 text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/60">
-                {statusLabel[status]} ({items.length})
+                {JOB_STATUS_LABELS[status]} ({items.length})
               </p>
               <ul className="space-y-0.5">
                 {items.map((job) => (
@@ -116,7 +102,7 @@ export function JobsSidebar({ jobs, activeId, onSelect, onAdd }: Props) {
                         <span
                           className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${JOB_STATUS_COLORS[job.status] ?? ""}`}
                         >
-                          {statusLabel[job.status] ?? job.status}
+                          {JOB_STATUS_LABELS[job.status] ?? job.status}
                         </span>
                         {job.platform && (
                           <span className="text-[9px] text-muted-foreground truncate">

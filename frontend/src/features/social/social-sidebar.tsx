@@ -4,7 +4,7 @@ import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { SocialDraft } from "@/types/tools";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import { ONE_WEEK_MS } from "@/constants";
+import { ONE_WEEK_MS, SOCIAL_DATE_FILTERS } from "@/constants";
 import {
   InnerSidebar,
   InnerSidebarHeader,
@@ -31,12 +31,6 @@ const PlatformIcon = ({ platform }: { platform: string }) => {
   if (platform === "twitter") return <Twitter className="size-3.5" />;
   return <Instagram className="size-3.5" />;
 };
-
-const FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Recent", value: "recent" },
-  { label: "Older", value: "older" },
-];
 
 export function SocialSidebar({
   platform,
@@ -79,7 +73,7 @@ export function SocialSidebar({
         onChange={setSearchQuery}
         placeholder="Search drafts…"
       />
-      <InnerSidebarFilters filters={FILTERS} active={activeFilter} onChange={setActiveFilter} />
+      <InnerSidebarFilters filters={SOCIAL_DATE_FILTERS} active={activeFilter} onChange={setActiveFilter} />
       <InnerSidebarDivider />
       <InnerSidebarList>
         {filtered.length > 0 ? (

@@ -4,7 +4,7 @@ import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { MailTemplate } from "@/types/tools";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import { ONE_WEEK_MS } from "@/constants";
+import { ONE_WEEK_MS, MAIL_LIST_FILTERS } from "@/constants";
 import {
   InnerSidebar,
   InnerSidebarHeader,
@@ -31,12 +31,6 @@ const ChannelIcon = ({ channel }: { channel: string }) => {
   if (channel === "gmail") return <Mail className="size-3.5" />;
   return <MessageCircle className="size-3.5" />;
 };
-
-const FILTERS = [
-  { label: "All", value: "all" },
-  { label: "Recent", value: "recent" },
-  { label: "A–Z", value: "az" },
-];
 
 export function MailsSidebar({
   channel,
@@ -85,7 +79,7 @@ export function MailsSidebar({
         onChange={setSearchQuery}
         placeholder="Search templates…"
       />
-      <InnerSidebarFilters filters={FILTERS} active={activeFilter} onChange={setActiveFilter} />
+      <InnerSidebarFilters filters={MAIL_LIST_FILTERS} active={activeFilter} onChange={setActiveFilter} />
       <InnerSidebarDivider />
       <InnerSidebarList>
         {filtered.length > 0 ? (

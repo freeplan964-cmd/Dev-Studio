@@ -3,7 +3,7 @@ import { useState } from "react";
 import { usePagination } from "@/hooks/use-pagination";
 import { ListPagination } from "@/components/ui/list-pagination";
 import type { FreelanceOffer } from "@/types/jobs";
-import { OFFER_STATUS_COLORS, PLATFORM_COLORS } from "@/constants";
+import { OFFER_STATUS_COLORS, PLATFORM_COLORS, OFFER_STATUS_LABELS } from "@/constants";
 import {
   InnerSidebar,
   InnerSidebarHeader,
@@ -19,14 +19,6 @@ interface Props {
   onSelect: (id: string) => void;
   onAdd: () => void;
 }
-
-const statusLabel: Record<string, string> = {
-  new: "New",
-  in_review: "In Review",
-  accepted: "Accepted",
-  rejected: "Rejected",
-  completed: "Done",
-};
 
 export function OffersSidebar({ offers, activeId, onSelect, onAdd }: Props) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -133,7 +125,7 @@ export function OffersSidebar({ offers, activeId, onSelect, onAdd }: Props) {
                   <span
                     className={`text-[9px] px-1.5 py-0.5 rounded-lg border font-medium ${OFFER_STATUS_COLORS[offer.status] ?? ""}`}
                   >
-                    {statusLabel[offer.status] ?? offer.status}
+                    {OFFER_STATUS_LABELS[offer.status] ?? offer.status}
                   </span>
                   {offer.budget && (
                     <span className="text-[9px] text-green-400 font-medium">
